@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('core/connection.php');
+require_once('core/base_controller.php');
 
 if(isset($_GET['controller'])) $controller = $_GET['controller'];
 else $controller = 'admin';
