@@ -6,7 +6,7 @@ class AdminController extends BaseController {
         
     }
     function index() {
-        require_once 'views/admin/index.php';
+        require_once 'views/admin/login.php';
     }
 
     function error()

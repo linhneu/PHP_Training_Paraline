@@ -1,5 +1,5 @@
 <?php
-class DB
+/*class DB
 {
     private $__conn;
 
@@ -61,4 +61,18 @@ class DB
         mysqli_free_result($result);
         return $return;
     }
+}*/
+class DB {
+    public $con;
+    protected $servername = "localhost";
+    protected $username = "root";
+    protected $password = "";
+    protected $dbname = "php_training_paraline";
+
+    function __construct(){
+        $this->con = mysqli_connect($this->servername, $this->username, $this->password);
+        mysqli_select_db($this->con, $this->dbname);
+        mysqli_query($this->con, "SET NAMES 'utf8'");
+    }
+
 }
