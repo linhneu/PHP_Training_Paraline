@@ -9,12 +9,22 @@ class AdminController extends BaseController{
         echo __METHOD__;
         $this->view('frontend.admins.index');
     }
-    public function login(){       
+    public function login(){      
+        $this->view('frontend.admins.login',); 
         $admins = $this->adminModel->getAllAdmin(['email', 'password']);
-
-        $this->view('frontend.admins.login',
-    ['admins' => $admins]
-    );
+        if(isset($_POST["submit"])){
+            $email = $_POST["email"] ?? null;
+            $password = $_POST["password"] ?? null;
+            if(isset($email) && isset($password)){
+               
+                      $_SESSION["email"]= $email;
+                      $_SESSION["password"]= $password;
+                      header('location: index.php');
+            }
+                else echo '<center class="alert alert-danger">Tài khoản không tồn tại hoặc bạn không có quyền truy cập</center>';
+            
+        }
+      
 
     }
 }
