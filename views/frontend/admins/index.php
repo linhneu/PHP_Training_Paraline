@@ -1,0 +1,1 @@
+<h1>Index phần admin</h1>

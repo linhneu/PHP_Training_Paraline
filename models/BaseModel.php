@@ -9,9 +9,11 @@ class BaseModel extends Database {
 
     }
     public function getAll($table, $select = ['*']){
-        
-
-        $sql = "SELECT { implode(',',$select)}  FROM ${table}";
+       // echo '<pre>';
+       // print_r ($select);
+        //echo implode(',', $select);
+        $columns = implode(',', $select);
+        $sql = "SELECT ${columns}  FROM ${table}";
         $query = $this->_query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
