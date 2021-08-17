@@ -37,7 +37,7 @@
                         
 					</form>
                     <?php
-				} else header('location: quantri.php');
+				} else header('location: ./views/frontend/admin/index.php');
 					?>
 					
 				</div>

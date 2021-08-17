@@ -19,7 +19,7 @@ class AdminController extends BaseController{
                
                       $_SESSION["email"]= $email;
                       $_SESSION["password"]= $password;
-                      header('location: index.php');
+                      header('location: ./views/frontend/admins/index.php');
             }
                 else echo '<center class="alert alert-danger">Tài khoản không tồn tại hoặc bạn không có quyền truy cập</center>';
             
