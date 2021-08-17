@@ -44,11 +44,12 @@ class AdminController extends BaseController{
             
 
             if($_FILE['avatar']['name'] =='') {
-                $error_anh_sp='<span style="color: red;">(*)</span>';
+                $error_avatar='<span style="color: red;">(*)</span>';
             }
             else {
-                $anh_sp = $_FILES['avatar']['name'];
-                $tmp_name = $_FILES['avatar']['tmp_name'];
+                $avatar = $_FILES['avatar']['name'];
+                $tmp_name = $_FILES['anh_sp']['tmp_name'];
+
             }
             $data = [
                 'name'=> $name,
@@ -66,11 +67,40 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.createAdmin',);        
     }
     public function updateAdmin(){
-        $id = $_GET['id'];
-        $data = [
-            'id' => 1,
-            'name' => 'linh'
-        ];
+        if(isset($_POST["submit"])) {
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $role_type = $_POST["role_type"];
+            $ins_id = $_POST["ins_id"];
+            $upd_id = $_POST["upd_id"];
+            $del_flag = $_POST["del_flag"];
+            $ins_datetime = $upd_datetime = date('Y-m-d H:s:i');
+            
+
+            if($_FILE['avatar']['name'] =='') {
+                $error_avatar='<span style="color: red;">(*)</span>';
+            }
+            else {
+                $avatar = $_FILES['avatar']['name'];
+                $tmp_name = $_FILES['anh_sp']['tmp_name'];
+
+            }
+            $data = [
+                'name'=> $name,
+                'email'=> $email,
+                'password'=> $password,
+                'ins_id'=> $ins_id,
+                'upd_id'=> $upd_id,
+                'ins_datetime'=> $ins_datetime,
+                'upd_datetime'=> $upd_datetime,
+                'role_type'=> $role_type,
+                'del_flag'=> $del_flag,
+            ];
+            $this->adminModel->createAdmin($data);          
+        }
+        $this->view('frontend.admins.updateAdmin',);
         $this->adminModel->updateAdmin($id, $data);
 
     }
