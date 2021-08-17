@@ -43,18 +43,13 @@
                     </svg> Trang chủ</a></li>
             <li><a href=""><svg class="glyph stroked folder">
                         <use xlink:href="#stroked-folder"></use>
-                    </svg> Thêm thành viên</a></li>
+                    </svg> Quản lý Admin </a></li>
             <li><a href=""><svg class="glyph stroked notepad">
                         <use xlink:href="#stroked-notepad"></use>
-                    </svg> Sản phẩm</a></li>
-            <li><a href=""><svg class="glyph stroked male-user">
-                        <use xlink:href="#stroked-male-user"></use>
-                    </svg> Khách hàng</a></li>
-            <li><a href=""><svg class="glyph stroked clipboard with paper">
-                    <use xlink:href="#stroked-clipboard-with-paper"/></svg> Đơn hàng </a></li>
-            <li><a href=""><svg class="glyph stroked email">
-                        <use xlink:href="#stroked-email"></use>
-                    </svg> Liên hệ </a></li>
+                    </svg> Quản lý User</a></li>
+            <li><a href=""><svg class="glyph stroked search">
+                        <use xlink:href="#stroked-search"></use>
+                    </svg> Tìm Kiếm </a></li>
             <li role="presentation" class="divider"></li>
         </ul>
 
@@ -94,6 +89,6 @@
 
 </html>
 <?php
-//}//else
+//}else
 //header('location: index.php');
 ?>
