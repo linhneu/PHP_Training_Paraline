@@ -8,12 +8,12 @@ class BaseModel extends Database {
         $this->connect = $this->connect();
 
     }
-    public function getAll($table, $select = ['*']){
+    public function getAll($table, $select = ['*'], $limit = 10){
        // echo '<pre>';
        // print_r ($select);
         //echo implode(',', $select);
         $columns = implode(',', $select);
-        $sql = "SELECT ${columns}  FROM ${table}";
+        $sql = "SELECT ${columns}  FROM ${table} LIMIT ${limit}";
         $query = $this->_query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
@@ -52,10 +52,15 @@ class BaseModel extends Database {
         $sql = "DELETE FROM ${table} WHERE id = ${id}";
         $this->_query($sql);
     }
-    public function find($table, $id) {
-        $sql = "SELECT * FROM ${table} WHERE id = ${id} LIMIT 1";
+    public function find($table, $search) {
+        $sql = "SELECT * FROM ${table} WHERE email LIKE '%${search}%' and name LIKE '%${search}%' LIMIT 1";
         $query = $this->_query($sql);
         return mysqli_fetch_assoc($query);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+            array_push($data, $row);
+        }
+        return $data;
         }
 
 }

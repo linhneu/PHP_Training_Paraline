@@ -4,8 +4,8 @@ class AdminModel extends BaseModel
 {
     const TABLE = 'admin';
 
-    public function getAllAdmin($select = ['*']) {
-        return $this->getAll(self::TABLE, $select);
+    public function getAllAdmin($select = ['*'], $limit = 15) {
+        return $this->getAll(self::TABLE, $select, $limit);
     }
     public function createAdmin($data) {
         return $this->create(self::TABLE, $data);
@@ -16,8 +16,8 @@ class AdminModel extends BaseModel
     public function deleteAdmin($id) {
         return $this->delete(self::TABLE, $id);
     }
-    public function findAdmin($id) {
-        return $this->find(self::TABLE, $id);
+    public function findAdmin($search) {
+        return $this->find(self::TABLE, $search);
     }
 
 }

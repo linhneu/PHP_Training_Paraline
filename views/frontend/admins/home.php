@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href=" css/styles.css" rel="stylesheet">
-    <script src="js/lumino.glyphs.js"></script>
+    <link href="asset/css/style.css" rel="stylesheet">
+    <script src="asset/js/lumino.glyphs.js"></script>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
                         Hello, <?php// if(isset($_SESSION['email'])){echo $_SESSION['email'];}?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="dangxuat.php"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
+                            <li><a href="index.php"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
                             Logout</a></li>
                         </ul>
                     </li>
@@ -38,7 +38,7 @@
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <ul class="nav menu">
             <li role="presentation" class="divider"></li>
-            <li class="active"><a href="index.php"><svg class="glyph stroked dashboard-dial">
+            <li class="active"><a href=""><svg class="glyph stroked dashboard-dial">
                         <use xlink:href="#stroked-dashboard-dial"></use>
                     </svg>Dashboard</a></li>
             <li><a href="index.php?controller=admin?action=listAdmin.php"><svg class="glyph stroked folder">

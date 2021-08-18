@@ -112,9 +112,29 @@ class AdminController extends BaseController{
         $this->adminModel->deleteAdmin($id);
     }
     public function findAdmin() {
-        $id = $_GET['id'];    
-        $admin = $this->adminModel->findAdmin($id);
-        print_r($admin);
+        $this->view('frontend.admins.findAdmin',);        
+        
+       if(isset($_POST['submit']))  {
+            $search = addslashes($_POST['search']);
+            if(empty($search)) {
+                echo "Please enter keyword";
+            } else 
+            {
+                $admins = $this->adminModel->findAdmin($search);
+                return $this->view('frontend.admins.findAdmin',
+                ['admins' => $admins]);
+               
+            }
+        } 
+        //$admins = $this->adminModel->findAdmin($search);
+        //print_r($admins);
+    }
+    
+    public function listAdmin(){
+        $admins = $this->adminModel->getAllAdmin(['email', 'password'], 2);
+        return $this->view('frontend.admins.listAdmin',
+        ['admins' => $admins]
+    );
     }
 }
 
