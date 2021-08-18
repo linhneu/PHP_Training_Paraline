@@ -37,7 +37,7 @@ class BaseModel extends Database {
         $sql = "INSERT INTO ${table}(${columns}) VALUES(${newValues})";
         $this->_query($sql);
     }
-    public function update($table, $id, $data) {
+    public function update($table, $id, $data, $row) {
         $dataSets = [];
         foreach ($data as $key => $val) {
             array_push($dataSets, "${key} = '". $val ."'");
@@ -45,11 +45,17 @@ class BaseModel extends Database {
         $dataSetString = implode(',', $dataSets);
         $sql = "UPDATE ${table} SET ${dataSetString}
         WHERE id = ${id}";
-        $this->_query($sql);
+        //$this->_query($sql);
+        //$query=mysqli_query($connect,$sql);
+       // $row = mysqli_fetch_array($query);
         $query = $this->_query($sql);
-        while ($row = mysqli_fetch_assoc($query)) {
-            array_push($dataSets, $row);
-        }
+        $row = mysqli_fetch_assoc($query);
+        //$data = [];
+       // while ($row = mysqli_fetch_assoc($query)) {
+           // array_push($data, $row);
+        //}
+       // return $data;
+            
     }
     public function delete($table, $id) {
         $sql = "DELETE FROM ${table} WHERE id = ${id}";

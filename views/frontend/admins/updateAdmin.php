@@ -18,38 +18,38 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input required type="text" name="name"
-                                    value="<?php if(isset($_POST['name'])){echo $_POST['name'];} else echo $row['name']; ?>"
+                                    value="<?php //if(isset($_POST['name'])){echo $_POST['name'];} else echo $row['name']; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
                                 <input required type="text" name="email"
-                                    value="<?php if(isset($_POST['email'])){echo $_POST['email'];}else echo $row['email']; ?>"
+                                    value="<?php //if(isset($_POST['email'])){echo $_POST['email'];}else echo $row['email']; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
                                 <input required type="text" name="password"
-                                    value="<?php if(isset($_POST['password'])){echo $_POST['password'];}else echo $row['password']; ?>"
+                                    value="<?php //if(isset($_POST['password'])){echo $_POST['password'];}else echo $row['password']; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Avatar</label>
                                 <input type="file" name="avatar" class="form-control">
-                                <input type="hidden" name='avatar' value="<?php echo $row['avatar']; ?>">
+                                <input type="hidden" name='avatar' value="<?php //echo $row['avatar']; ?>">
                             </div>
                             <div class="form-group">
                                 <label>Role_type</label><br>
                                 Super Admin <input type="radio" name="role_type" <?php
-                                   if($row['role_type'] == 0){
+                                   //if($row['role_type'] == 0){
                                        echo 'checked';
-                                   }
+                                  // }
 						             ?> value="0">
                                 <br>
                                 Admin <input type="radio" name="role_type" <?php
-                                   if($row['role_type'] == 1){
-                                       echo 'checked';
-                                   }
+                                   //if($row['role_type'] == 1){
+                                     //  echo 'checked';
+                                   //}
 						             ?> value="1">
                             </div>
 

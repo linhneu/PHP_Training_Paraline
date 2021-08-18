@@ -53,6 +53,7 @@ class AdminController extends BaseController{
                 $tmp_name = $_FILES['anh_sp']['tmp_name'];
 
             }
+            
             $data = [
                 'name'=> $name,
                 'email'=> $email,
@@ -70,7 +71,7 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.createAdmin',);        
     }
     public function updateAdmin(){
-        if(isset($_POST["submit"])) {
+        if(isset($_POST["submit"]) && isset($row)) {
             $id = $_POST["id"];
             $name = $_POST["name"];
             $email = $_POST["email"];
@@ -78,9 +79,11 @@ class AdminController extends BaseController{
             $role_type = $_POST["role_type"];
            // $ins_id = $_POST["ins_id"];
             $upd_id = $_POST["upd_id"];
-            $del_flag = $_POST["del_flag"];
+           // $del_flag = $_POST["del_flag"];
             $upd_datetime = date('Y-m-d H:s:i');
             
+            $row = $this->adminModel->updateAdmin($id);
+            print_r($row);
 
             if($_FILE['avatar']['name'] =='') {
                 $error_avatar='<span style="color: red;">(*)</span>';
@@ -93,13 +96,10 @@ class AdminController extends BaseController{
             $data = [
                 'name'=> $name,
                 'email'=> $email,
-                'password'=> $password,
-                'ins_id'=> $ins_id,
+                'password'=> $password,              
                 'upd_id'=> $upd_id,
-                'ins_datetime'=> $ins_datetime,
                 'upd_datetime'=> $upd_datetime,
                 'role_type'=> $role_type,
-                'del_flag'=> $del_flag,
             ];
             $this->adminModel->updateAdmin($id, $data);
         }
@@ -141,6 +141,66 @@ class AdminController extends BaseController{
 
     public function editUser(){
         
+        if(isset($_POST["submit"]) && isset($row)) {
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $email = $_POST["email"];
+            $facebook_id = $_POST["facebook"];
+            $status = $_POST["status"];
+           // $ins_id = $_POST["ins_id"];
+            $upd_id = $_POST["upd_id"];
+            //$del_flag = $_POST["del_flag"];
+            $upd_datetime = date('Y-m-d H:s:i');
+            
+            $row = $this->adminModel->updateUser($id);
+            print_r($row);
+
+            if($_FILE['avatar']['name'] =='') {
+                $error_avatar='<span style="color: red;">(*)</span>';
+            }
+            else {
+                $avatar = $_FILES['avatar']['name'];
+                $tmp_name = $_FILES['anh_sp']['tmp_name'];
+
+            }
+            $data = [
+                'name'=> $name,
+                'email'=> $email,
+                'password'=> $password,
+                'facebook_id'=> $facebook_id,
+                'status'=> $status,
+                'upd_id'=> $upd_id,
+                'upd_datetime'=> $upd_datetime,
+            ];
+            $this->adminModel->updateUser($id, $data);
+        }
+        $this->view('frontend.admins.updateUser',);
+       
+
+    }
+    public function deleteUser() {
+        $id = $_GET['id'];
+        $this->adminModel->deleteUser($id);
+    }
+    public function findUser() {
+        $this->view('frontend.admins.findUser',);        
+        
+       if(isset($_POST['submit']))  {
+           $condition = 0;
+            $search = addslashes($_POST['search']);
+            if(empty($search)) {
+                echo "Please enter keyword";
+            } else 
+            {
+                $admins = $this->adminModel->findUser($search, $condition);
+                //return $this->view('frontend.admins.findAdmin',
+                //['admins' => $admins]);
+                print_r($admins);
+               
+            }
+        } 
+        //$admins = $this->adminModel->findAdmin($search);
+        //print_r($admins);
     }
 }
 

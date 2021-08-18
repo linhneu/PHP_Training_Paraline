@@ -12,6 +12,7 @@ class AdminModel extends BaseModel
     }
     public function updateAdmin($id, $data) {
         return $this->update(self::TABLE, $id, $data);
+        return this->update($sql);
     }
     public function deleteAdmin($id) {
         return $this->delete(self::TABLE, $id);
