@@ -17,7 +17,6 @@ class AdminModel extends BaseModel
         return $this->delete(self::TABLE, $id);
     }
     public function findAdmin($id) {
-        echo __METHOD__;
         return $this->find(self::TABLE, $id);
     }
 

@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Trang quản trị</title>
+    <title>Adminn Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -24,10 +24,10 @@
                 <ul class="user-menu">
                     <li class="dropdown pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
-                        Xin chào, <?php// if(isset($_SESSION['email'])){echo $_SESSION['email'];}?> <span class="caret"></span></a>
+                        Hello, <?php// if(isset($_SESSION['email'])){echo $_SESSION['email'];}?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="dangxuat.php"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
-                            Đăng xuất</a></li>
+                            Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -40,16 +40,16 @@
             <li role="presentation" class="divider"></li>
             <li class="active"><a href="index.php"><svg class="glyph stroked dashboard-dial">
                         <use xlink:href="#stroked-dashboard-dial"></use>
-                    </svg> Trang chủ</a></li>
+                    </svg>Dashboard</a></li>
             <li><a href=""><svg class="glyph stroked folder">
                         <use xlink:href="#stroked-folder"></use>
-                    </svg> Quản lý Admin </a></li>
+                    </svg> Admin management </a></li>
             <li><a href=""><svg class="glyph stroked notepad">
                         <use xlink:href="#stroked-notepad"></use>
-                    </svg> Quản lý User</a></li>
+                    </svg> User management </a></li>
             <li><a href=""><svg class="glyph stroked search">
                         <use xlink:href="#stroked-search"></use>
-                    </svg> Tìm Kiếm </a></li>
+                    </svg> Search </a></li>
             <li role="presentation" class="divider"></li>
         </ul>
 
