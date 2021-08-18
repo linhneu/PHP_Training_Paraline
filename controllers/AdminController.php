@@ -138,6 +138,10 @@ class AdminController extends BaseController{
         ['admins' => $admins]
     );
     }
+
+    public function editUser(){
+        
+    }
 }
 
     

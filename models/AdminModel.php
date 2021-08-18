@@ -20,4 +20,14 @@ class AdminModel extends BaseModel
         return $this->find(self::TABLE, $search, $condition);
     }
 
+    const Table = 'user';
+    public function editUser($id, $data) {
+        return $this->update(self::Table, $id, $data);
+    }
+    public function findUser($search, $condition) {
+        return $this->find(self::Table, $search, $condition);
+    }
+    public function deleteUser($id) {
+        return $this->delete(self::Table, $id);
+    }
 }
