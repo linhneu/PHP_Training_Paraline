@@ -10,13 +10,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <link href="<?php// echo BASE_URL; ?>css/style.css" rel="stylesheet">
+  <link href="asset/css/styleUser.css" rel="stylesheet">
   
 </head>
 <body>
 
 <div class="page-header text-center">
-  <h1>USER LOGIN</h1>
 </div>
 <!--  If the user is login  -->
 <?php //if(isset($_SESSION['fb_user_id'])): ?>

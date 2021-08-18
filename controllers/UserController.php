@@ -7,4 +7,7 @@ class UserController extends BaseController{
     }public function index() {
         $this->view('frontend.users.index',); 
     }
+    public function showUser() {
+        $this->view('frontend.users.showUser',); 
+    }
 }
