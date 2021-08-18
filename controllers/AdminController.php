@@ -115,14 +115,16 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.findAdmin',);        
         
        if(isset($_POST['submit']))  {
+           $condition = 0;
             $search = addslashes($_POST['search']);
             if(empty($search)) {
                 echo "Please enter keyword";
             } else 
             {
-                $admins = $this->adminModel->findAdmin($search);
-                return $this->view('frontend.admins.findAdmin',
-                ['admins' => $admins]);
+                $admins = $this->adminModel->findAdmin($search, $condition);
+                //return $this->view('frontend.admins.findAdmin',
+                //['admins' => $admins]);
+                print_r($admins);
                
             }
         } 

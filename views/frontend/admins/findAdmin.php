@@ -4,7 +4,6 @@ function searchFocus() {
         document.sform.stext.value = '';
     }
 }
-
 function searchBlur() {
     if (document.sform.stext.value == '') {
         document.sform.stext.value = 'Enter Name or Email';

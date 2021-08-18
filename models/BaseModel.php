@@ -52,8 +52,9 @@ class BaseModel extends Database {
         $sql = "DELETE FROM ${table} WHERE id = ${id}";
         $this->_query($sql);
     }
-    public function find($table, $search) {
-        $sql = "SELECT * FROM ${table} WHERE email LIKE '%${search}%' and name LIKE '%${search}%' LIMIT 1";
+    public function find($table, $search, $condition) {
+        $sql = "SELECT * FROM ${table} WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
+        del_flag = ${condition}  LIMIT 1";
         $query = $this->_query($sql);
         return mysqli_fetch_assoc($query);
         $data = [];
