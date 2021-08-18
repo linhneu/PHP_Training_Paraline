@@ -1,4 +1,4 @@
-<h1>Adminmodel</h1>
+
 <?php
 class AdminModel extends BaseModel
 {

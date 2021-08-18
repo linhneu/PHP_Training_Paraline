@@ -46,7 +46,10 @@ class BaseModel extends Database {
         $sql = "UPDATE ${table} SET ${dataSetString}
         WHERE id = ${id}";
         $this->_query($sql);
-
+        $query = $this->_query($sql);
+        while ($row = mysqli_fetch_assoc($query)) {
+            array_push($dataSets, $row);
+        }
     }
     public function delete($table, $id) {
         $sql = "DELETE FROM ${table} WHERE id = ${id}";

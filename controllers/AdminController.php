@@ -35,17 +35,16 @@ class AdminController extends BaseController{
     public function createAdmin() {      
  
         if(isset($_POST["submit"])) {
-            $id = $_POST["id"];
+            //$id = $_POST["id"];
             $name = $_POST["name"];
             $email = $_POST["email"];
             $password = $_POST["password"];
             $role_type = $_POST["role_type"];
             $ins_id = $_POST["ins_id"];
-            $upd_id = $_POST["upd_id"];
+           // $upd_id = $_POST["upd_id"];
             $del_flag = $_POST["del_flag"];
-            $ins_datetime = $upd_datetime = date('Y-m-d H:s:i');
+            $ins_datetime =  date('Y-m-d H:s:i');
             
-
             if($_FILE['avatar']['name'] =='') {
                 $error_avatar='<span style="color: red;">(*)</span>';
             }
@@ -65,7 +64,8 @@ class AdminController extends BaseController{
                 'role_type'=> $role_type,
                 'del_flag'=> $del_flag,
             ];
-            $this->adminModel->createAdmin($data);          
+            $this->adminModel->createAdmin($data);    
+           // return $this->view('frontend.admins.home',);       
         }
         $this->view('frontend.admins.createAdmin',);        
     }
@@ -76,10 +76,10 @@ class AdminController extends BaseController{
             $email = $_POST["email"];
             $password = $_POST["password"];
             $role_type = $_POST["role_type"];
-            $ins_id = $_POST["ins_id"];
+           // $ins_id = $_POST["ins_id"];
             $upd_id = $_POST["upd_id"];
             $del_flag = $_POST["del_flag"];
-            $ins_datetime = $upd_datetime = date('Y-m-d H:s:i');
+            $upd_datetime = date('Y-m-d H:s:i');
             
 
             if($_FILE['avatar']['name'] =='') {
@@ -101,10 +101,10 @@ class AdminController extends BaseController{
                 'role_type'=> $role_type,
                 'del_flag'=> $del_flag,
             ];
-            $this->adminModel->createAdmin($data);          
+            $this->adminModel->updateAdmin($id, $data);
         }
         $this->view('frontend.admins.updateAdmin',);
-        $this->adminModel->updateAdmin($id, $data);
+       
 
     }
     public function deleteAdmin() {
