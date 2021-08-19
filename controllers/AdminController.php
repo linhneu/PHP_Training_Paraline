@@ -70,11 +70,9 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.createAdmin',);        
     }
     public function updateAdmin(){
-        //$this->view('frontend.admins.updateAdmin');
         $id = $_GET['id'];
-        /*
         if(isset($_POST["submit"])) {
-          
+           
             $name = $_POST["name"];
             $email = $_POST["email"];
             $password = $_POST["password"];
@@ -101,24 +99,12 @@ class AdminController extends BaseController{
                 'role_type'=> $role_type,
             ];
             $this->adminModel->updateAdmin($id, $data);
-            $detail = $this->adminModel->getById($id);
         }   
-        */
-        //$this->adminModel->updateAdmin($id, $data);
-        $rows = $this->adminModel->getById($id);
-        print_r($rows);
-        //echo $rows['name'];
-        die;
+            $row = $this->adminModel->getIdAdmin($id);
+            $this->view('frontend.admins.updateAdmin',[
+                'row' => $row
+                 ]);
 
-            //$this->view('frontend.admins.updateAdmin',[
-                // 'details' => $details
-                // ]);
-        //$row = $this->adminModel->getAllAdmin(['id','name', 'email', 'password', 'avatar', 'role_type']);
-        //$detail = $this->adminModel->getById($id);
-      // $this->view('frontend.admins.updateAdmin',[
-           //'row' => $row, 
-          // 'detail' => $detail
-           //  ]); 
     }
     public function deleteAdmin() {
         $id = $_GET['id'];
@@ -152,14 +138,13 @@ class AdminController extends BaseController{
         ['admins' => $admins]
         
     );
-    $rows = $this->adminModel->getById($id);
+    $rows = $this->adminModel->getIdAdmin($id);
         print_r($rows);
     }
 
     public function editUser(){
-        
-        if(isset($_POST["submit"]) && isset($row)) {
-            $id = $_POST["id"];
+        $id = $_GET['id'];
+        if(isset($_POST["submit"])) {
             $name = $_POST["name"];
             $email = $_POST["email"];
             $facebook_id = $_POST["facebook"];
@@ -168,9 +153,6 @@ class AdminController extends BaseController{
             $upd_id = $_POST["upd_id"];
             //$del_flag = $_POST["del_flag"];
             $upd_datetime = date('Y-m-d H:s:i');
-            
-            $row = $this->adminModel->updateUser($id);
-            print_r($row);
 
             if($_FILE['avatar']['name'] =='') {
                 $error_avatar='<span style="color: red;">(*)</span>';
@@ -191,9 +173,11 @@ class AdminController extends BaseController{
             ];
             $this->adminModel->updateUser($id, $data);
         }
-        $this->view('frontend.admins.updateUser',);
+            $row = $this->adminModel->getIdUser($id);
+            $this->view('frontend.admins.editUser',[
+                'row' => $row
+                 ]);
        
-
     }
     public function deleteUser() {
         $id = $_GET['id'];
@@ -216,8 +200,6 @@ class AdminController extends BaseController{
                
             }
         } 
-        //$admins = $this->adminModel->findAdmin($search);
-        //print_r($admins);
     }
 }
 

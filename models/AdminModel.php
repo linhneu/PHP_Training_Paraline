@@ -20,11 +20,9 @@ class AdminModel extends BaseModel
     public function findAdmin($search, $condition) {
         return $this->find(self::TABLE, $search, $condition);
     }
-    public function getById($id) {
+    public function getIdAdmin($id) {
         $sql = "SELECT * FROM ".self::TABLE." WHERE id = ${id}";
         return $this->getByQuery($sql);
-        //$query_conn=mysqli_query($connect,$sql);
-        //$row  = mysqli_fetch_array($query_conn);
     }
 
     const Table = 'user';
@@ -36,5 +34,9 @@ class AdminModel extends BaseModel
     }
     public function deleteUser($id) {
         return $this->delete(self::Table, $id);
+    }
+    public function getIdUser($id) {
+        $sql = "SELECT * FROM ".self::Table." WHERE id = ${id}";
+        return $this->getByQuery($sql);
     }
 }
