@@ -1,5 +1,5 @@
 <?php
-require_once('./core/autoload.php'); 
+require_once('./core/Facebook/autoload.php'); 
 
 define('APP_ID','361145988958077');
 define('APP_SECRET', 'fa948ca2d92929ecb6f3ceef4594220c');

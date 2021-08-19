@@ -1,3 +1,5 @@
+<?php require_once 'core/configFB.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
