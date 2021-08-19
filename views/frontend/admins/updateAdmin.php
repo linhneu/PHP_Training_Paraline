@@ -1,4 +1,9 @@
-
+<h1><?= $detail['name'] ?? null ?></h1>
+<?php
+print_r ($row);
+echo '<br>';
+echo $detail['name'] ?? null;
+?>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Admin Account</h1>
@@ -18,7 +23,7 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input required type="text" name="name"
-                                    value="<?php //if(isset($_POST['name'])){echo $_POST['name'];} else echo $row['name']; ?>"
+                                    value="<?php if(isset($_POST['name'])){echo $_POST['name'];} else echo $detail['name'] ?? null; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
@@ -38,17 +43,17 @@
                                 <input type="file" name="avatar" class="form-control">
                                 <input type="hidden" name='avatar' value="<?php //echo $row['avatar']; ?>">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group"
                                 <label>Role_type</label><br>
                                 Super Admin <input type="radio" name="role_type" <?php
                                    //if($row['role_type'] == 0){
-                                       echo 'checked';
-                                  // }
+                                    //   echo 'checked';
+                                  //}
 						             ?> value="0">
                                 <br>
                                 Admin <input type="radio" name="role_type" <?php
                                    //if($row['role_type'] == 1){
-                                     //  echo 'checked';
+                                     // echo 'checked';
                                    //}
 						             ?> value="1">
                             </div>

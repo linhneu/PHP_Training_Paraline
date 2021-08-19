@@ -20,6 +20,10 @@ class AdminModel extends BaseModel
     public function findAdmin($search, $condition) {
         return $this->find(self::TABLE, $search, $condition);
     }
+    public function getById($id) {
+        $sql = "SELECT * FROM " .self::TABLE." WHERE id = $id";
+        return $this->getByQuery($sql);
+    }
 
     const Table = 'user';
     public function editUser($id, $data) {

@@ -15,8 +15,7 @@ class AdminController extends BaseController{
         if(isset($_POST["submit"])){
             $email = $_POST["email"] ?? null;
             $password = $_POST["password"] ?? null;
-            if(isset($email) && isset($password)){
-               
+            if(isset($email) && isset($password)){             
                       $_SESSION["email"]= $email;
                       $_SESSION["password"]= $password;
                       //$this->view('frontend.admins.home');;
@@ -71,7 +70,9 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.createAdmin',);        
     }
     public function updateAdmin(){
-        if(isset($_POST["submit"]) && isset($row)) {
+        //$this->view('frontend.admins.updateAdmin');
+        //$id = $_GET["id"];
+        if(isset($_POST["submit"])) {
             $id = $_POST["id"];
             $name = $_POST["name"];
             $email = $_POST["email"];
@@ -82,16 +83,13 @@ class AdminController extends BaseController{
            // $del_flag = $_POST["del_flag"];
             $upd_datetime = date('Y-m-d H:s:i');
             
-            $row = $this->adminModel->updateAdmin($id);
-            print_r($row);
+            //$row = $this->adminModel->getAllAdmin(['name', 'email','password','role_type']);
 
             if($_FILE['avatar']['name'] =='') {
                 $error_avatar='<span style="color: red;">(*)</span>';
-            }
-            else {
+            }else {
                 $avatar = $_FILES['avatar']['name'];
                 $tmp_name = $_FILES['anh_sp']['tmp_name'];
-
             }
             $data = [
                 'name'=> $name,
@@ -102,10 +100,14 @@ class AdminController extends BaseController{
                 'role_type'=> $role_type,
             ];
             $this->adminModel->updateAdmin($id, $data);
-        }
-        $this->view('frontend.admins.updateAdmin',);
-       
-
+            $detail = $this->adminModel->getById($id);
+            
+        }          
+        $row = $this->adminModel->getAllAdmin(['id','name', 'email', 'password', 'avatar', 'role_type']);
+        //$detail = $this->adminModel->getById($id);
+        $this->view('frontend.admins.updateAdmin',[
+            'row' => $row, 'detail' => $detail
+             ]); 
     }
     public function deleteAdmin() {
         $id = $_GET['id'];
