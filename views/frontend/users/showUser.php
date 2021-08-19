@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <link href="asset/css/styleUser.css" rel="stylesheet">
   
 </head>
@@ -19,7 +18,6 @@
 <div class="page-header text-center">
   <h1>Hello</h1>
 </div>
-
 <!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN --> 
 <!--  If the user is login  -->
 <?php //if(isset($_SESSION['fb_user_id'])): ?>
@@ -31,7 +29,7 @@
 	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
 		<ul class="navbar-nav">
 		  <li class="nav-item">
-			<a class="nav-link" href=""><i class="fa fa-facebook"> Facebook </i></a>
+			<a class="nav-link" href=""><i class="fa fa-facebook-square"> Facebook </i></a>
 		  </li>
 		  <li class="nav-item">
 			<a class="nav-link" href=""><i class="fa fa-email"> Email </i></a>
@@ -48,7 +46,7 @@
 		<div class="col-sm-2">
 		  <h2>About Me</h2>
 		  <h5>Profile Picture:</h5>
-		  <div class="fakeimg"><?php //echo  $_SESSION['fb_user_pic']; ?></div>
+		  <div class="fakeimg"><?php echo  $row['avatar']; ?></div>
 		  <hr class="d-sm-none">
 		</div>
 		<div class="col-sm-2"></div>
@@ -58,13 +56,16 @@
 		  <h3>User Info</h3>
 		  <ul class="nav nav-pills flex-column">
 			<li class="nav-item">
-			  <a class="nav-link" >Facebook ID: <?php //echo  $_SESSION['fb_user_id']; ?></a>
+			  <a class="nav-link" >Facebook ID: <?php echo  $row['facebook_id']; ?></a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link">Full Name: <?php //echo $_SESSION['fb_user_name']; ?></a>
+			  <a class="nav-link">Full Name: <?php echo $row['name']; ?></a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link">Email: <?php //echo $_SESSION['fb_user_email']; ?></a>
+			  <a class="nav-link">Email: <?php echo $row['email']; ?></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link">Status: <?php echo $row['status']; ?></a>
 			</li>
 		  </ul>
 		  

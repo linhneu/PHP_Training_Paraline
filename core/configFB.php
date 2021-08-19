@@ -5,13 +5,14 @@ define('APP_ID','361145988958077');
 define('APP_SECRET', 'fa948ca2d92929ecb6f3ceef4594220c');
 define('API_VERSION', 'v2.5');
 define('FB_BASE_URL', 'http://localhost:81/PHP-training-Paraline/index.php?controller=user');
+define('BASE_URL', 'http://localhost:81/PHP-training-Paraline/index.php?controller=user');
 
 
 if(!session_id()){
     session_start();
   }
   // Call Facebook API
-  $fb = new Facebook([
+  $fb = new Facebook\Facebook([
   'app_id' => APP_ID,
   'app_secret' => APP_SECRET,
   'default_graph_version' => API_VERSION,

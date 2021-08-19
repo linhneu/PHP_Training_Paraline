@@ -1,6 +1,13 @@
 <?php
 //session_start();
 //if(isset($_SESSION['email'])&& isset($_SESSION['password'])){
+    view('frontend.admins.listAdmin');
+    view('frontend.admins.createAdmin');
+    view('frontend.admins.updateAdmin');
+    view('frontend.admins.findAdmin');
+    view('frontend.admins.listUser');
+    view('frontend.admins.editUser');
+    view('frontend.admins.findUser');
 ?>
 <!DOCTYPE html>
 <html>

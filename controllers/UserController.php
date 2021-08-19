@@ -1,17 +1,19 @@
 <?php
-require_once 'core/configDB.php';
+//include ('./core/configFB.php');
 class UserController extends BaseController{
     private $userModel;
     public function __construct() {
         $this->loadModel('UserModel');
         $this->userModel = new UserModel;
-    }public function index() {
+    }
+    public function index() {
+		
+		require_once ('./core/configFB.php');
 
-        $this->view('frontend.users.index',);
-        $permissions = ['email']; //optional
+		$permissions = ['email']; //optional
 
-if (isset($accessToken))
-{
+	if (isset($accessToken))
+	{
 	if (!isset($_SESSION['facebook_access_token'])) 
 	{
 		//get short-lived access token
@@ -26,11 +28,11 @@ if (isset($accessToken))
 		
 		//setting default access token to be used in script
 		$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-	} 
-	else 
-	{
+		} 
+		else 
+		{
 		$fb->setDefaultAccessToken($_SESSION['facebook_access_token']);
-	}
+		}
 	
 	
 	//redirect the user to the index page if it has $_GET['code']
@@ -53,24 +55,36 @@ if (isset($accessToken))
 		$_SESSION['fb_user_pic'] = $picture['url'];
 		
 		
-	} catch(Facebook\Exceptions\FacebookResponseException $e) {
+	} catch(FacebookResponseException $e) {
 		echo 'Facebook API Error: ' . $e->getMessage();
 		session_destroy();
 		// redirecting user back to app login page
 		header("Location: ./");
 		exit;
-	} catch(Facebook\Exceptions\FacebookSDKException $e) {
+	} catch(FacebookSDKException $e) {
 		echo 'Facebook SDK Error: ' . $e->getMessage();
 		exit;
 	}
-} 
-else 
-{	
+	} 
+	else 
+	{	
+	//include ('./core/configFB.php');
 	// replace your website URL same as added in the developers.Facebook.com/apps e.g. if you used http instead of https and you used
 	$fb_login_url = $fb_helper->getLoginUrl('http://localhost/facebook1/', $permissions);
-} 
-    }
+	}
+	$this->view('frontend.users.index',
+	['fb_login_url' => $fb_login_url,]
+	);
+    } 
+
     public function showUser() {
-        $this->view('frontend.users.showUser',); 
+		$id = $_GET['id'];
+		$row = $this->userModel->getIdUser($id);
+        $this->view('frontend.users.showUser',
+		['row' => $row]
+	); 
+    }
+    public function demo() {
+        $this->view('frontend.users.demo',); 
     }
 }
