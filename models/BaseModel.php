@@ -75,10 +75,8 @@ class BaseModel extends Database {
     public function getByQuery($sql){
         $query = $this->_query($sql);
         $data =[];
-        while ($row = mysql_fetch_assoc($query)) {
-            array_push($data, $row);
-        }
-        return $data;
+        return mysqli_fetch_assoc($query);
+       
 
     }
 

@@ -21,8 +21,10 @@ class AdminModel extends BaseModel
         return $this->find(self::TABLE, $search, $condition);
     }
     public function getById($id) {
-        $sql = "SELECT * FROM " .self::TABLE." WHERE id = $id";
+        $sql = "SELECT * FROM ".self::TABLE." WHERE id = ${id}";
         return $this->getByQuery($sql);
+        //$query_conn=mysqli_query($connect,$sql);
+        //$row  = mysqli_fetch_array($query_conn);
     }
 
     const Table = 'user';

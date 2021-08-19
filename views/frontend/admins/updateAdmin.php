@@ -1,6 +1,5 @@
-<h1><?= $detail['name'] ?? null ?></h1>
+<h1><?= $row['name']  ?></h1>
 <?php
-print_r ($row);
 echo '<br>';
 echo $detail['name'] ?? null;
 ?>
@@ -10,7 +9,7 @@ echo $detail['name'] ?? null;
     </div>
 </div>
 <!--/.row-->
-
+<?php //if (isset($_POST["submit"])) { ?>
 <div class="row">
     <div class="col-xs-12 col-md-12 col-lg-12">
 
@@ -23,7 +22,7 @@ echo $detail['name'] ?? null;
                             <div class="form-group">
                                 <label>Name</label>
                                 <input required type="text" name="name"
-                                    value="<?php if(isset($_POST['name'])){echo $_POST['name'];} else echo $detail['name'] ?? null; ?>"
+                                    value="<?php if(isset($_POST['name'])){echo $_POST['name'];} else echo $detail['name'] ; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
@@ -69,3 +68,4 @@ echo $detail['name'] ?? null;
     </div>
 </div>
 <!--/.row-->
+<?php //} ?>

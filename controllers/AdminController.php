@@ -71,9 +71,10 @@ class AdminController extends BaseController{
     }
     public function updateAdmin(){
         //$this->view('frontend.admins.updateAdmin');
-        //$id = $_GET["id"];
+        $id = $_GET['id'];
+        /*
         if(isset($_POST["submit"])) {
-            $id = $_POST["id"];
+          
             $name = $_POST["name"];
             $email = $_POST["email"];
             $password = $_POST["password"];
@@ -101,13 +102,23 @@ class AdminController extends BaseController{
             ];
             $this->adminModel->updateAdmin($id, $data);
             $detail = $this->adminModel->getById($id);
-            
-        }          
-        $row = $this->adminModel->getAllAdmin(['id','name', 'email', 'password', 'avatar', 'role_type']);
+        }   
+        */
+        //$this->adminModel->updateAdmin($id, $data);
+        $rows = $this->adminModel->getById($id);
+        print_r($rows);
+        //echo $rows['name'];
+        die;
+
+            //$this->view('frontend.admins.updateAdmin',[
+                // 'details' => $details
+                // ]);
+        //$row = $this->adminModel->getAllAdmin(['id','name', 'email', 'password', 'avatar', 'role_type']);
         //$detail = $this->adminModel->getById($id);
-        $this->view('frontend.admins.updateAdmin',[
-            'row' => $row, 'detail' => $detail
-             ]); 
+      // $this->view('frontend.admins.updateAdmin',[
+           //'row' => $row, 
+          // 'detail' => $detail
+           //  ]); 
     }
     public function deleteAdmin() {
         $id = $_GET['id'];
@@ -135,10 +146,14 @@ class AdminController extends BaseController{
     }
     
     public function listAdmin(){
+
         $admins = $this->adminModel->getAllAdmin(['email', 'password'], 2);
         return $this->view('frontend.admins.listAdmin',
         ['admins' => $admins]
+        
     );
+    $rows = $this->adminModel->getById($id);
+        print_r($rows);
     }
 
     public function editUser(){
