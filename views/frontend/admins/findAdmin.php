@@ -1,3 +1,10 @@
+<?php
+if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
+    if($row['role_type'] == 2) {
+        die('Do not have right to access');
+    }
+}
+?>
 <script>
 function searchFocus() {
     if (document.sform.stext.value == 'Enter Name or Email') {

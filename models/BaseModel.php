@@ -1,7 +1,7 @@
 <?php
 class BaseModel extends Database {
     protected $connect;
-    private function _query($sql) {
+    public function _query($sql) {
         return mysqli_query($this->connect, $sql);
     }
     public function __construct() {
@@ -67,8 +67,10 @@ class BaseModel extends Database {
         $query = $this->_query($sql);
         $data =[];
         return mysqli_fetch_assoc($query);
-       
-
+    }
+    public function getQuery($sql) {
+        $query = $this->_query($sql);
+        $data =[];
     }
 
 }

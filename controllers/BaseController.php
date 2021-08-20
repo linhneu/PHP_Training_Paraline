@@ -8,7 +8,7 @@ class BaseController
     path name: foldername.fileName.name
     lấy từ sau thư mục view
     */
-    protected function view($viewPath, array $data = []) {
+    public function view($viewPath, array $data = []) {
         foreach($data as $key => $value) {
             $$key = $value;
         }
@@ -17,7 +17,7 @@ class BaseController
          require ($viewPath);
 
     }
-    protected function loadModel($modelPath) {
+    public function loadModel($modelPath) {
         $modelPath = self::MODEL_FOLDER_NAME . '/' . $modelPath . '.php';
         
         require ($modelPath);

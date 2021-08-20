@@ -1,13 +1,6 @@
 <?php
-//session_start();
-//if(isset($_SESSION['email'])&& isset($_SESSION['password'])){
-    view('frontend.admins.listAdmin');
-    view('frontend.admins.createAdmin');
-    view('frontend.admins.updateAdmin');
-    view('frontend.admins.findAdmin');
-    view('frontend.admins.listUser');
-    view('frontend.admins.editUser');
-    view('frontend.admins.findUser');
+session_start();
+if(!isset($_SESSION['email'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +24,10 @@
                 <ul class="user-menu">
                     <li class="dropdown pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
-                        Hello, <?php// if(isset($_SESSION['email'])){echo $_SESSION['email'];}?> <span class="caret"></span></a>
+                        Hello, <?php echo $_SESSION['email'];  ?>
+                        <?php// if(isset($_SESSION['email'])){
+                            //echo $_SESSION['email'];
+                            ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="index.php"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
                             Logout</a></li>
@@ -45,13 +41,13 @@
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <ul class="nav menu">
             <li role="presentation" class="divider"></li>
-            <li class="active"><a href=""><svg class="glyph stroked dashboard-dial">
+            <li class="active"><a href="index.php?controller=admin&action=home"><svg class="glyph stroked dashboard-dial">
                         <use xlink:href="#stroked-dashboard-dial"></use>
                     </svg>Dashboard</a></li>
-            <li><a href="index.php?controller=admin?action=listAdmin.php"><svg class="glyph stroked folder">
+            <li><a href="index.php?controller=admin&action=listAdmin"><svg class="glyph stroked folder">
                         <use xlink:href="#stroked-folder"></use>
                     </svg> Admin management </a></li>
-            <li><a href=""><svg class="glyph stroked notepad">
+            <li><a href="index.php?controller=admin&action=listUser"><svg class="glyph stroked notepad">
                         <use xlink:href="#stroked-notepad"></use>
                     </svg> User management </a></li>
             <li><a href=""><svg class="glyph stroked search">
@@ -63,32 +59,7 @@
     </div>
 
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-        <?php
-      // master page
-      /*
-      if(isset($_GET["page_layout"])){
-        switch ($_GET["page_layout"]) {
-            case 'danhsachsp':include_once './danhsachsp.php';
-               break;
-            case 'danhsachdh':include_once './danhsachdh.php';
-               break;
-            case 'xemdonhang':include_once './xemdonhang.php';
-               break;
-            case 'danhsachlh':include_once './danhsachlh.php';
-               break;
-            case 'themsp':include_once './themsp.php';
-               break;
-            case 'suasp':include_once './suasp.php';
-               break;
-            case 'danhsachdm':include_once './danhsachdm.php';
-               break;
-            case 'suadm':include_once './suadm.php';
-               break;
-           
-        }
-      }
-      else include_once './gioithieu.php'; */
-      ?>
+      
     </div>
     <!--/.main-->
 
@@ -96,6 +67,6 @@
 
 </html>
 <?php
-//}else
+} //else
 //header('location: index.php');
 ?>

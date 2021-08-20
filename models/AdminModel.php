@@ -6,6 +6,7 @@ class AdminModel extends BaseModel
 
     public function getAllAdmin($select = ['*'], $limit = 15) {
         return $this->getAll(self::TABLE, $select, $limit);
+        
     }
     public function createAdmin($data) {
         return $this->create(self::TABLE, $data);
@@ -23,6 +24,16 @@ class AdminModel extends BaseModel
     public function getIdAdmin($id) {
         $sql = "SELECT * FROM ".self::TABLE." WHERE id = ${id}";
         return $this->getByQuery($sql);
+    }
+    public function getAdmin() {
+        $sql = "SELECT * FROM ".self::TABLE."  ";
+        return $this->getByQuery($sql);
+    }
+    public function getLogin( $email, $password ) {
+        $sql = "SELECT * FROM ".self::TABLE." WHERE email=${email} and password = ${password} ";
+        return $this->getQuery($sql);
+        $num_row = mysqli_num_rows($query);
+
     }
 
     const Table = 'user';

@@ -11,17 +11,33 @@ class AdminController extends BaseController{
    // }
     public function index(){      
         $this->view('frontend.admins.index',); 
-        $admins = $this->adminModel->getAllAdmin(['email', 'password']);
+        //$admins = $this->adminModel->getAllAdmin(['email', 'password']);
         if(isset($_POST["submit"])){
-            $email = $_POST["email"] ?? null;
-            $password = $_POST["password"] ?? null;
-            if(isset($email) && isset($password)){             
-                      $_SESSION["email"]= $email;
-                      $_SESSION["password"]= $password;
+            $email = $_POST["email"] ;
+            $password = $_POST["password"] ;
+            $this->adminModel->getLogin($email, $password);
+            //if(isset($email) && isset($password)){             
+                //      $_SESSION["email"]= $email;
+                  //    $_SESSION["password"]= $password;
+                   //   $admins = $this->adminModel->getAllAdmin(['email', 'password']);
+
                       //$this->view('frontend.admins.home');;
-            }
-                else echo '<center class="alert alert-danger">Tài khoản không tồn tại hoặc bạn không có quyền truy cập</center>';
+           // }
+                //else echo '<center class="alert alert-danger"> Username and Password can be blank  </center>';
+                if ($email== "" || $password =="") {
+                    echo "username or password cannot be blank! // you don't have right to access";
+                }else{
+                        $row = $this->adminModel->getAdmin();
+                        print_r($row);
+                        $_SESSION['email'] = $email;
+                        $_SESSION["password"]= $password;
+                        $this->view('frontend.admins.home',
+                        ['email' => $email, ]
+                        );
+                    }
         }
+        
+        //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
     }
     public function home() {
         $this->view('frontend.admins.home');
@@ -132,14 +148,21 @@ class AdminController extends BaseController{
     }
     
     public function listAdmin(){
-
-        $admins = $this->adminModel->getAllAdmin(['email', 'password'], 2);
-        return $this->view('frontend.admins.listAdmin',
-        ['admins' => $admins]
         
+        $row = $this->adminModel->getAdmin();
+        //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
+        return $this->view('frontend.admins.listAdmin',
+        [ 'row' => $row]
     );
-    $rows = $this->adminModel->getIdAdmin($id);
-        print_r($rows);
+    }
+    public function listUser(){
+        
+        $row = $this->adminModel->getAdmin();
+        //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
+        return $this->view('frontend.admins.listUser',
+        [ 'row' => $row]
+    );
+     
     }
 
     public function editUser(){
@@ -200,6 +223,10 @@ class AdminController extends BaseController{
                
             }
         } 
+    }
+    public function introduce() {
+        $this->view('frontend.admins.introduce',);        
+
     }
 }
 

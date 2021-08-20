@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login Page</title>
-<link href=" asset/css/styles.css" rel="stylesheet">
+<link href=" asset/css/style.css" rel="stylesheet">
 <script src="asset/js/lumino.glyphs.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -20,7 +21,7 @@
 				<?php
 				if(!isset($_SESSION['email'])){
 				?>
-					<form method="post">
+					<form method="post" action = ''>
 						<fieldset>
 							<div class="form-group">
 								<input class="form-control" placeholder="Email" name="email" type="email" autofocus="">
@@ -38,7 +39,7 @@
                         
 					</form>
                     <?php
-				} else header('location: ./views/frontend/admin/index.php');
+				} else header('location: home.php');
 					?>
 					
 				</div>
