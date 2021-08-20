@@ -7,22 +7,35 @@ class AdminController extends BaseController{
     }
     public function index(){   
         $this->view('frontend.admins.index',); 
-       
+        $result_mess = false;
         if(isset($_POST["submit"])){
             $email = $_POST["email"] ;
             $password = $_POST["password"] ;
             if(empty($_POST["email"]) || empty($_POST["password"])) {
-                $this->view('frontend.admins.index');
-                echo 'Not blank';
-            } 
+                $this->view('frontend.admins.index', 
+            ["result" => $result_mess]
+            );
+                echo 'Not blank';}
+            
             $result = $this->adminModel->login($email);
-            if(mysqli_num_rows($result) == 0 ) {
-                echo 'Failed';
+            if(mysqli_num_rows($result) ) {
+                while ($row = mysqli_fetch_array($result)) {
+                    $id = $row["id"];
+                    $email = $row["email"];
+                    $password = $row["password"];
+                }
+                if (password_verify($password)) {
+                    $_SESSION["id"] = $id;
+                    $this->view('frontend.admins.home', [
+                        "result" => $result_mess=true
+                    ]);
                 } else {
-                    $_SESSION['email'] = $email;
-                    $this->view('frontend.admins.home');
+                    $this->view('frontend.admins.index',
+                ["result" => $result_mess]
+                );
                 }
             }
+        }
                 
         }       
         //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);

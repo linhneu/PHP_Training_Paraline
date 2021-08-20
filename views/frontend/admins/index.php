@@ -19,7 +19,13 @@
 				<div class="panel-heading">Log in</div>
 				<div class="panel-body">
 				<?php
-				if(!isset($_SESSION["email"])){
+				if (isset($data["result"])) {
+					if ($data["result"] == true) {
+
+					} else {
+						echo "Login is failed";
+					}
+				
 				?>
 					<form method="post" action="index.php?controller=admin&action=home" >
 						<fieldset>
@@ -40,7 +46,7 @@
                         
 					</form>
                     <?php
-				} else header('location: index.php?controller=admin&action=home');
+				} else header("Location:http://localhost:81/PHP-training-Paraline/index.php?controller=admin ");
 					?>
 					
 				</div>
