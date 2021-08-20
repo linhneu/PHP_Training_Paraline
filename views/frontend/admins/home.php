@@ -1,6 +1,8 @@
 <?php
 session_start();
-if(!isset($_SESSION['email'])) {
+if(!isset($_SESSION["email"])) {
+    header('Location: index.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,12 +26,11 @@ if(!isset($_SESSION['email'])) {
                 <ul class="user-menu">
                     <li class="dropdown pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
-                        Hello, <?php echo $_SESSION['email'];  ?>
-                        <?php// if(isset($_SESSION['email'])){
-                            //echo $_SESSION['email'];
+                        Hello, <?php if(isset($_SESSION["email"])){
+                            echo $_SESSION["email"]; }
                             ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="index.php"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
+                            <li><a href="index.php?controller=admin"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
                             Logout</a></li>
                         </ul>
                     </li>
@@ -67,6 +68,6 @@ if(!isset($_SESSION['email'])) {
 
 </html>
 <?php
-} //else
+//} else
 //header('location: index.php');
 ?>

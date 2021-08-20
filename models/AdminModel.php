@@ -32,9 +32,15 @@ class AdminModel extends BaseModel
     public function getLogin( $email, $password ) {
         $sql = "SELECT * FROM ".self::TABLE." WHERE email=${email} and password = ${password} ";
         return $this->getQuery($sql);
-        $num_row = mysqli_num_rows($query);
-
     }
+    public function getRow() {
+        $sql = "SELECT COUNT(*) FROM ".self::TABLE."";
+        return $this->getQuery($sql);       
+    }
+    public function login($email) {
+        $sql = "SELECT * FROM ".self::TABLE." WHERE email = '{$email}'";
+        return $this->getQuery($sql);       
+    } 
 
     const Table = 'user';
     public function editUser($id, $data) {

@@ -5,40 +5,27 @@ class AdminController extends BaseController{
         $this->loadModel('AdminModel');
         $this->adminModel = new AdminModel;
     }
-    //public function index() {
-        
-       // $this->view('frontend.admins.index');
-   // }
-    public function index(){      
+    public function index(){   
         $this->view('frontend.admins.index',); 
-        //$admins = $this->adminModel->getAllAdmin(['email', 'password']);
+       
         if(isset($_POST["submit"])){
             $email = $_POST["email"] ;
             $password = $_POST["password"] ;
-            $this->adminModel->getLogin($email, $password);
-            //if(isset($email) && isset($password)){             
-                //      $_SESSION["email"]= $email;
-                  //    $_SESSION["password"]= $password;
-                   //   $admins = $this->adminModel->getAllAdmin(['email', 'password']);
-
-                      //$this->view('frontend.admins.home');;
-           // }
-                //else echo '<center class="alert alert-danger"> Username and Password can be blank  </center>';
-                if ($email== "" || $password =="") {
-                    echo "username or password cannot be blank! // you don't have right to access";
-                }else{
-                        $row = $this->adminModel->getAdmin();
-                        print_r($row);
-                        $_SESSION['email'] = $email;
-                        $_SESSION["password"]= $password;
-                        $this->view('frontend.admins.home',
-                        ['email' => $email, ]
-                        );
-                    }
-        }
-        
+            if(empty($_POST["email"]) || empty($_POST["password"])) {
+                $this->view('frontend.admins.index');
+                echo 'Not blank';
+            } 
+            $result = $this->adminModel->login($email);
+            if(mysqli_num_rows($result) == 0 ) {
+                echo 'Failed';
+                } else {
+                    $_SESSION['email'] = $email;
+                    $this->view('frontend.admins.home');
+                }
+            }
+                
+        }       
         //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
-    }
     public function home() {
         $this->view('frontend.admins.home');
     }

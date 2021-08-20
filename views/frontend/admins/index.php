@@ -19,9 +19,9 @@
 				<div class="panel-heading">Log in</div>
 				<div class="panel-body">
 				<?php
-				if(!isset($_SESSION['email'])){
+				if(!isset($_SESSION["email"])){
 				?>
-					<form method="post" action = ''>
+					<form method="post" action="index.php?controller=admin&action=home" >
 						<fieldset>
 							<div class="form-group">
 								<input class="form-control" placeholder="Email" name="email" type="email" autofocus="">
@@ -34,12 +34,13 @@
 									<input name="remember" type="checkbox" value="Remember Me">Remember Me
 								</label>
 							</div>
-							<input type ="submit" name ="submit" class="btn btn-primary" value ="Login">
+							<input type ="submit" name ="submit" class="btn btn-primary" value ="Login"
+							>
 						</fieldset>
                         
 					</form>
                     <?php
-				} else header('location: home.php');
+				} else header('location: index.php?controller=admin&action=home');
 					?>
 					
 				</div>

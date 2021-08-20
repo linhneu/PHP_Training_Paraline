@@ -57,7 +57,7 @@ class BaseModel extends Database {
         del_flag = ${condition}  LIMIT 1";
         $query = $this->_query($sql);
         return mysqli_fetch_assoc($query);
-        $data = [];
+        
         while ($row = mysqli_fetch_assoc($query)) {
             array_push($data, $row);
         }
@@ -70,7 +70,9 @@ class BaseModel extends Database {
     }
     public function getQuery($sql) {
         $query = $this->_query($sql);
-        $data =[];
+        $data = [];
+        //return mysqli_fetch_assoc($query);
+        //return mysqli_num_rows($query);
     }
 
 }
