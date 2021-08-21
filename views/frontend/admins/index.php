@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +21,10 @@
 				<div class="panel-heading">Log in</div>
 				<div class="panel-body">
 				<?php
-				if (isset($data["result"])) {
-					if ($data["result"] == true) {
-
-					} else {
-						echo "Login is failed";
-					}
 				
-				?>
-					<form method="post" action="index.php?controller=admin&action=home" >
+				//if (!isset($_SESSION['email']) && !isset($_SESSION['password'])) {
+					?>
+					<form method="post" action="" >
 						<fieldset>
 							<div class="form-group">
 								<input class="form-control" placeholder="Email" name="email" type="email" autofocus="">
@@ -46,7 +43,8 @@
                         
 					</form>
                     <?php
-				} else header("Location:http://localhost:81/PHP-training-Paraline/index.php?controller=admin ");
+				//}else header('location: index.php?controller=admin&action=home ');
+			
 					?>
 					
 				</div>

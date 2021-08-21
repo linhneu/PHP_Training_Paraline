@@ -37,9 +37,10 @@ class AdminModel extends BaseModel
         $sql = "SELECT COUNT(*) FROM ".self::TABLE."";
         return $this->getQuery($sql);       
     }
-    public function login($email) {
-        $sql = "SELECT * FROM ".self::TABLE." WHERE email = '{$email}'";
-        return $this->getQuery($sql);       
+    public function login($email, $password) {
+        $sql = "SELECT * FROM ".self::TABLE." WHERE email = '{$email}' and password = '{$password}'";
+        return mysqli_query($this->connect, $sql);
+
     } 
 
     const Table = 'user';

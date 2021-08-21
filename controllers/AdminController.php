@@ -6,7 +6,7 @@ class AdminController extends BaseController{
         $this->adminModel = new AdminModel;
     }
     public function index(){   
-        $this->view('frontend.admins.index',); 
+        /*
         $result_mess = false;
         if(isset($_POST["submit"])){
             $email = $_POST["email"] ;
@@ -24,10 +24,11 @@ class AdminController extends BaseController{
                     $email = $row["email"];
                     $password = $row["password"];
                 }
-                if (password_verify($password)) {
-                    $_SESSION["id"] = $id;
+                if (password_verify($password_input, $password)) {
+                    $_SESSION['email'] = $email;
                     $this->view('frontend.admins.home', [
-                        "result" => $result_mess=true
+                        "result" => $result_mess=true,
+                        
                     ]);
                 } else {
                     $this->view('frontend.admins.index',
@@ -35,9 +36,35 @@ class AdminController extends BaseController{
                 );
                 }
             }
+        }*/
+        //$this->adminModel->getAllAdmin(['email', 'password']);
+        if(isset($_POST["submit"])) {
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $email = strip_tags($email);
+            $email = addslashes($email);
+            $password = strip_tags($password);
+            $password = addslashes($password);
+            if ($email == "" || $password =="") {
+                echo "email hoặc password bạn không được để trống!";
+                $this->view('frontend.admins.index');
+                die;
+            }else{
+                $result = $this->adminModel->login($email, $password);
+               if (mysqli_num_rows($result) > 0) {
+                $_SESSION['email'] = $email;
+                $_SESSION['password'] = $password;
+                header ('location: index.php?controller=admin&action=home');                                                            
+               }else{
+                echo "tên đăng nhập hoặc mật khẩu không đúng !";
+                $this->view('frontend.admins.index');
+                die;
+               }
         }
-                
-        }       
+    }
+        $this->view('frontend.admins.index');
+
+        }   
         //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
     public function home() {
         $this->view('frontend.admins.home');

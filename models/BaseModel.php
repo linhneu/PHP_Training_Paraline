@@ -1,6 +1,6 @@
 <?php
 class BaseModel extends Database {
-    protected $connect;
+    public $connect;
     public function _query($sql) {
         return mysqli_query($this->connect, $sql);
     }

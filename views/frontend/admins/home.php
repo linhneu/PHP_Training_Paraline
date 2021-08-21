@@ -1,6 +1,9 @@
 <?php
 session_start();
-if(isset($_SESSION["id"])){
+if(!isset($_SESSION['email']) && !isset($_SESSION['password'])){
+    header('location: index.php?controller=admin&action=index');
+    echo "Login is failed";
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +20,9 @@ if(isset($_SESSION["id"])){
 </head>
 
 <body>
+<script type="text/javascript">
+		alert('Bạn đã đăng nhập thành công');
+	</script>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -25,10 +31,10 @@ if(isset($_SESSION["id"])){
                     <li class="dropdown pull-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
                         Hello, <?php 
-                            echo $row["email"]; 
+                            echo $_SESSION['email']; 
                             ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="index.php?controller=admin"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
+                            <li><a href="index.php?controller=admin&action=index"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
                             Logout</a></li>
                         </ul>
                     </li>
@@ -66,6 +72,6 @@ if(isset($_SESSION["id"])){
 
 </html>
 <?php
-} else
-header('location: index.php?controller=admin');
+ //else
+//header('Location: index.php?controller=admin');
 ?>
