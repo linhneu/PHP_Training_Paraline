@@ -1,6 +1,12 @@
 <?php
+    include('./views/include/admin/header.php');
+    include('./views/include/admin/navbar.php');
+?>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+<?php
 if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
-    if($row['role_type'] == 2) {
+    if($_SESSION['role_type'] == 2) {
         die('Do not have right to access');
     }
 }
@@ -43,8 +49,9 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
                                 <input type="file" name="avatar" class="form-control">
                                 <input type="hidden" name='avatar' value="<?php echo $row['avatar']; ?>">
                             </div>
-                            <div class="form-group"
-                                <label>Role_type</label><br>
+                            <div class="form-group">
+                                <label>Role type</label>
+                                <br>
                                 Super Admin <input type="radio" name="role_type" <?php
                                    if($row['role_type'] == 0){
                                       echo 'checked';
@@ -69,3 +76,4 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
     </div>
 </div>
 <!--/.row-->
+</div>

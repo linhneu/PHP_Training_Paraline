@@ -13,13 +13,17 @@ class AdminModel extends BaseModel
     }
     public function updateAdmin($id, $data) {
         return $this->update(self::TABLE, $id, $data);
-        return this->update($sql);
+        return $this->update($sql);
     }
     public function deleteAdmin($id) {
         return $this->delete(self::TABLE, $id);
     }
     public function findAdmin($search, $condition) {
-        return $this->find(self::TABLE, $search, $condition);
+        //$sqls = $this->find(self::TABLE, $search, $condition);
+        $sql = "SELECT * FROM ".self::TABLE." WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
+        del_flag = ${condition}  LIMIT 10";
+        return mysqli_query($this->connect, $sql);
+
     }
     public function getIdAdmin($id) {
         $sql = "SELECT * FROM ".self::TABLE." WHERE id = ${id}";
@@ -28,7 +32,6 @@ class AdminModel extends BaseModel
     public function getAdmin() {
         $sql = "SELECT * FROM ".self::TABLE." ORDER BY id ";
         return mysqli_query($this->connect, $sql);
-        //return $this->getByQuery($sql);
     }
     public function getRow() {
         $sql = "SELECT COUNT(*) FROM ".self::TABLE."";
@@ -45,7 +48,10 @@ class AdminModel extends BaseModel
         return $this->update(self::Table, $id, $data);
     }
     public function findUser($search, $condition) {
-        return $this->find(self::Table, $search, $condition);
+        $sql = "SELECT * FROM ".self::Table." WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
+        del_flag = ${condition}  LIMIT 10";
+        return mysqli_query($this->connect, $sql);
+
     }
     public function deleteUser($id) {
         return $this->delete(self::Table, $id);
@@ -54,4 +60,9 @@ class AdminModel extends BaseModel
         $sql = "SELECT * FROM ".self::Table." WHERE id = ${id}";
         return $this->getByQuery($sql);
     }
+    public function getUser() {
+        $sql = "SELECT * FROM ".self::Table." ORDER BY id ";
+        return mysqli_query($this->connect, $sql);
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php
 class AdminController extends BaseController{
-    private $adminModel;
+    public $adminModel;
     public function __construct() {
         $this->loadModel('AdminModel');
         $this->adminModel = new AdminModel;
@@ -131,43 +131,37 @@ class AdminController extends BaseController{
     public function deleteAdmin() {
         $id = $_GET['id'];
         $this->adminModel->deleteAdmin($id);
+        return $this->view('frontend.admins.listAdmin');
     }
     public function findAdmin() {
-        $this->view('frontend.admins.findAdmin',);        
-        
        if(isset($_POST['submit']))  {
-           $condition = 0;
-            $search = addslashes($_POST['search']);
-            if(empty($search)) {
-                echo "Please enter keyword";
-            } else 
-            {
-                $admins = $this->adminModel->findAdmin($search, $condition);
-                //return $this->view('frontend.admins.findAdmin',
-                //['admins' => $admins]);
-                print_r($admins);
-               
-            }
-        } 
+        $condition = 0;
+        $search = addslashes($_POST['search']);
+            if(empty($search)) { ?>
+                <script type="text/javascript">
+		        alert('Bạn chưa nhập từ khóa tìm kiếm');
+	            </script>
+            <?php } else {
+            $result = $this->adminModel->findAdmin($search, $condition);
+            return $this->view('frontend.admins.findAdmin',['result' => $result]);    
+                
+        } }
+        $this->view('frontend.admins.findAdmin');        
+
     }
-    
+
     public function listAdmin(){
         
         $result = $this->adminModel->getAdmin();
-        $row = mysqli_fetch_array($result);
         return $this->view('frontend.admins.listAdmin',
-        [ 'row' => $row, 'result'=>$result]
+        [ 'result'=>$result]
     );
     }
     public function listUser(){
-        
-        $row = $this->adminModel->getAdmin();
-        //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
-
+        $result = $this->adminModel->getUser();
         return $this->view('frontend.admins.listUser',
-        [ 'row' => $row]
-    );
-     
+        [  'result'=>$result]
+    );     
     }
 
     public function editUser(){
@@ -212,22 +206,21 @@ class AdminController extends BaseController{
         $this->adminModel->deleteUser($id);
     }
     public function findUser() {
-        $this->view('frontend.admins.findUser',);        
-        
-       if(isset($_POST['submit']))  {
-           $condition = 0;
+        if(isset($_POST['submit']))  {
+            $condition = 0;
             $search = addslashes($_POST['search']);
-            if(empty($search)) {
-                echo "Please enter keyword";
-            } else 
-            {
-                $admins = $this->adminModel->findUser($search, $condition);
-                //return $this->view('frontend.admins.findAdmin',
-                //['admins' => $admins]);
-                print_r($admins);
-               
-            }
-        } 
+                if(empty($search)) { ?>
+                    <script type="text/javascript">
+                    alert('Bạn chưa nhập từ khóa tìm kiếm');
+                    </script>
+                <?php } else {
+                $result = $this->adminModel->findUser($search, $condition);
+                return $this->view('frontend.admins.findUser',['result' => $result]);    
+                    
+            } }
+            $this->view('frontend.admins.findUser');        
+    
+    
     }
     public function introduce() {
         $this->view('frontend.admins.introduce',);        

@@ -32,7 +32,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])&& isset($_SESSION['
                     <thead>
                         <tr class="bg-info">
                             <th width>ID</th>
-                            <th width="30%">Name</th>
+                            <th width="15%">Name</th>
                             <th>Email</th>
                             <th width="20%">Avatar</th>
                             <th>Role Type</th>
@@ -51,9 +51,9 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])&& isset($_SESSION['
                             </td>
                             <td><?php echo $rows['role_type'];?></td>
                             <td>
-                                <a href="quantri.php?controller=admin&action=updateAdmin&id=<?php echo $row['id']; ?>" class="btn btn-warning"><span
+                                <a href="index.php?controller=admin&action=updateAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
                                         class="glyphicon glyphicon-edit"></span>Sửa</a>
-                                <a href="quantri.php?controller=admin&action=deleteAdmin&id=<?php echo $row['id']; ?>" class="btn btn-danger"><span
+                                <a href="index.php?controller=admin&action=deleteAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
                                         class="glyphicon glyphicon-trash"></span>Xóa</a>
                             </td>
 						</tr>

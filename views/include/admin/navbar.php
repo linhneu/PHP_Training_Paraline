@@ -11,9 +11,12 @@
             <li><a href="index.php?controller=admin&action=listUser"><svg class="glyph stroked notepad">
                         <use xlink:href="#stroked-notepad"></use>
                     </svg> User management </a></li>
-            <li><a href=""><svg class="glyph stroked search">
-                        <use xlink:href="#stroked-search"></use>
-                    </svg> Search </a></li>
+            <li><a href="index.php?controller=admin&action=findAdmin"><svg class="glyph stroked clipboard with paper">
+                        <use xlink:href="#stroked-clipboard-with-paper"></use>
+                    </svg> Search Admin </a></li>
+            <li><a href="index.php?controller=admin&action=findUser"><svg class="glyph stroked printer">
+                        <use xlink:href="#stroked-printer"></use>
+                    </svg> Search User </a></li>
             <li role="presentation" class="divider"></li>
         </ul>
 
