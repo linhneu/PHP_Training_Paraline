@@ -6,38 +6,6 @@ class AdminController extends BaseController{
         $this->adminModel = new AdminModel;
     }
     public function index(){   
-        /*
-        $result_mess = false;
-        if(isset($_POST["submit"])){
-            $email = $_POST["email"] ;
-            $password = $_POST["password"] ;
-            if(empty($_POST["email"]) || empty($_POST["password"])) {
-                $this->view('frontend.admins.index', 
-            ["result" => $result_mess]
-            );
-                echo 'Not blank';}
-            
-            $result = $this->adminModel->login($email);
-            if(mysqli_num_rows($result) ) {
-                while ($row = mysqli_fetch_array($result)) {
-                    $id = $row["id"];
-                    $email = $row["email"];
-                    $password = $row["password"];
-                }
-                if (password_verify($password_input, $password)) {
-                    $_SESSION['email'] = $email;
-                    $this->view('frontend.admins.home', [
-                        "result" => $result_mess=true,
-                        
-                    ]);
-                } else {
-                    $this->view('frontend.admins.index',
-                ["result" => $result_mess]
-                );
-                }
-            }
-        }*/
-        //$this->adminModel->getAllAdmin(['email', 'password']);
         if(isset($_POST["submit"])) {
             $email = $_POST["email"];
             $password = $_POST["password"];
@@ -45,6 +13,7 @@ class AdminController extends BaseController{
             $email = addslashes($email);
             $password = strip_tags($password);
             $password = addslashes($password);
+            $row = $this->adminModel->getAdmin();
             if ($email == "" || $password =="") {
                 echo "email hoặc password bạn không được để trống!";
                 $this->view('frontend.admins.index');
@@ -54,7 +23,10 @@ class AdminController extends BaseController{
                if (mysqli_num_rows($result) > 0) {
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
-                header ('location: index.php?controller=admin&action=home');                                                            
+                $this->view('include.admin.header',
+                [   'row' => $row]
+                );                                                             
+                header ('location: index.php?controller=admin&action=home');  
                }else{
                 echo "tên đăng nhập hoặc mật khẩu không đúng !";
                 $this->view('frontend.admins.index');
@@ -62,6 +34,7 @@ class AdminController extends BaseController{
                }
         }
     }
+                       
         $this->view('frontend.admins.index');
 
         }   
@@ -70,9 +43,12 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.home');
     }
     public function logout(){
-        session_start();
         unset($_SESSION['email']);
-        $this->view('frontend.admins.index');;
+        session_destroy();
+        //return $this->view('frontend.admins.index');
+        return $this->index();
+        //session_destroy();
+
     }
     public function createAdmin() {      
  
