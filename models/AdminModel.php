@@ -26,19 +26,16 @@ class AdminModel extends BaseModel
         return $this->getByQuery($sql);
     }
     public function getAdmin() {
-        $sql = "SELECT * FROM ".self::TABLE."  ";
-        return $this->getByQuery($sql);
-    }
-    public function getLogin( $email, $password ) {
-        $sql = "SELECT * FROM ".self::TABLE." WHERE email=${email} and password = ${password} ";
-        return $this->getQuery($sql);
+        $sql = "SELECT * FROM ".self::TABLE." ORDER BY id ";
+        return mysqli_query($this->connect, $sql);
+        //return $this->getByQuery($sql);
     }
     public function getRow() {
         $sql = "SELECT COUNT(*) FROM ".self::TABLE."";
         return $this->getQuery($sql);       
     }
-    public function login($email, $password) {
-        $sql = "SELECT * FROM ".self::TABLE." WHERE email = '{$email}' and password = '{$password}'";
+    public function login($email, $password, $role_type) {
+        $sql = "SELECT * FROM ".self::TABLE." WHERE email = '{$email}' and password = '{$password}' and role_type= '{$role_type}'";
         return mysqli_query($this->connect, $sql);
 
     } 

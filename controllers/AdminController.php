@@ -9,6 +9,7 @@ class AdminController extends BaseController{
         if(isset($_POST["submit"])) {
             $email = $_POST["email"];
             $password = $_POST["password"];
+            $role_type = $_POST["role_type"];
             $email = strip_tags($email);
             $email = addslashes($email);
             $password = strip_tags($password);
@@ -19,10 +20,11 @@ class AdminController extends BaseController{
                 $this->view('frontend.admins.index');
                 die;
             }else{
-                $result = $this->adminModel->login($email, $password);
+                $result = $this->adminModel->login($email, $password, $role_type);
                if (mysqli_num_rows($result) > 0) {
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
+                $_SESSION['role_type'] = $role_type;
                 $this->view('include.admin.header',
                 [   'row' => $row]
                 );                                                             
@@ -43,10 +45,11 @@ class AdminController extends BaseController{
         $this->view('frontend.admins.home');
     }
     public function logout(){
-        unset($_SESSION['email']);
-        session_destroy();
-        //return $this->view('frontend.admins.index');
+        //unset($_SESSION['email']);
+        //unset($_SESSION['password']);
+        //session_destroy();
         return $this->index();
+        $this->view('frontend.admins.index');
         //session_destroy();
 
     }
@@ -146,22 +149,21 @@ class AdminController extends BaseController{
                
             }
         } 
-        //$admins = $this->adminModel->findAdmin($search);
-        //print_r($admins);
     }
     
     public function listAdmin(){
         
-        $row = $this->adminModel->getAdmin();
-        //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
+        $result = $this->adminModel->getAdmin();
+        $row = mysqli_fetch_array($result);
         return $this->view('frontend.admins.listAdmin',
-        [ 'row' => $row]
+        [ 'row' => $row, 'result'=>$result]
     );
     }
     public function listUser(){
         
         $row = $this->adminModel->getAdmin();
         //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
+
         return $this->view('frontend.admins.listUser',
         [ 'row' => $row]
     );

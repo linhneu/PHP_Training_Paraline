@@ -1,4 +1,8 @@
 <?php
+    include('./views/include/admin/header.php');
+    include('./views/include/admin/navbar.php');
+?>
+<?php
 if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
     if($row['role_type'] == 2) {
         die('Do not have right to access');

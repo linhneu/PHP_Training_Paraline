@@ -4,16 +4,19 @@
 ?>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 <?php
+
 //session_start();
-//if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
-    if($row['role_type'] == 2) {
-        die('Do not have right to access');
+if(isset($_SESSION['email']) && isset($_SESSION['password'])&& isset($_SESSION['role_type'])) {
+    if($_SESSION['role_type'] == 2) {
 ?>
-<?php } else if ($row['role_type'] == 1){ ?>
+<script type="text/javascript">
+		alert('Bạn có không có quyền truy cập');
+	</script>
+<?php         die('Do not have right to access');
+ } else if ($_SESSION['role_type'] == 1){ ?>
     <script type="text/javascript">
 		alert('Bạn có quyền truy cập');
 	</script>
-
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Admin List</h1>
@@ -37,15 +40,16 @@
                         </tr>
                     </thead>
                     <tbody>
-					
+                        <?php while ($rows = mysqli_fetch_array($result)) {
+                        ?>
                         <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['name'];?></td>
-                            <td><?php echo $row['email'];?></td>
+                            <td><?php echo $rows['id']; ?></td>
+                            <td><?php echo $rows['name'];?></td>
+                            <td><?php echo $rows['email'];?></td>
                             <td>
-                                <img width="200px" src="img/<?php echo $row['avatar'];?>" class="thumbnail">
+                                <img width="200px" src="img/<?php echo $rows['avatar'];?>" class="thumbnail">
                             </td>
-                            <td><?php echo $row['role_type'];?></td>
+                            <td><?php echo $rows['role_type'];?></td>
                             <td>
                                 <a href="quantri.php?controller=admin&action=updateAdmin&id=<?php echo $row['id']; ?>" class="btn btn-warning"><span
                                         class="glyphicon glyphicon-edit"></span>Sửa</a>
@@ -53,6 +57,8 @@
                                         class="glyphicon glyphicon-trash"></span>Xóa</a>
                             </td>
 						</tr>
+                        <?php }
+						?>
                     </tbody>
                 </table>
             </div>
@@ -60,6 +66,6 @@
     </div>
 </div>
 </body>
-<?php } 
+<?php }  }
 ?>
 </div>

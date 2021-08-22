@@ -1,10 +1,18 @@
 <?php
+        include('./views/include/admin/header.php');
+        include('./views/include/admin/navbar.php');
+    
+?>
+
+<?php
 if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
-    if($row['role_type'] == 2) {
+    if($_SESSION['role_type'] == 2) {
         die('Do not have right to access');
     }
 }
 ?>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Admin Account</h1>
@@ -56,4 +64,5 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
             </div>
         </div>
     </div>
+</div>
 </div>
