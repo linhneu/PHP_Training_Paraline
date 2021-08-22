@@ -86,7 +86,9 @@ class AdminController extends BaseController{
                 'role_type'=> $role_type,
                 'del_flag'=> $del_flag,
             ];
-            $this->adminModel->createAdmin($data);    
+            $this->adminModel->createAdmin($data); 
+            move_uploaded_file($tmp_name,"asset/images/".$avatar);
+   
            // return $this->view('frontend.admins.home',);       
         }
         $this->view('frontend.admins.createAdmin',);        
@@ -100,27 +102,29 @@ class AdminController extends BaseController{
             $password = $_POST["password"];
             $role_type = $_POST["role_type"];
            // $ins_id = $_POST["ins_id"];
-            $upd_id = $_POST["upd_id"];
+            //$upd_id = $_POST["upd_id"];
            // $del_flag = $_POST["del_flag"];
             $upd_datetime = date('Y-m-d H:s:i');
             
             //$row = $this->adminModel->getAllAdmin(['name', 'email','password','role_type']);
-
-            if($_FILE['avatar']['name'] =='') {
-                $error_avatar='<span style="color: red;">(*)</span>';
-            }else {
-                $avatar = $_FILES['avatar']['name'];
-                $tmp_name = $_FILES['anh_sp']['tmp_name'];
+            if($_FILES['avatar']['name'] == ""){
+                $avatar =$_POST['avatar'];
             }
+            else {
+                $avatar = $_FILES['avatar']['name'];
+                $tmp_name = $_FILES['avatar']['tmp_name'];
+            }        
+
             $data = [
                 'name'=> $name,
                 'email'=> $email,
                 'password'=> $password,              
-                'upd_id'=> $upd_id,
+                //'upd_id'=> $upd_id,
                 'upd_datetime'=> $upd_datetime,
                 'role_type'=> $role_type,
             ];
             $this->adminModel->updateAdmin($id, $data);
+            move_uploaded_file($tmp_name,"asset/images/".$avatar);
         }   
             $row = $this->adminModel->getIdAdmin($id);
             $this->view('frontend.admins.updateAdmin',[
@@ -142,10 +146,30 @@ class AdminController extends BaseController{
 		        alert('Bạn chưa nhập từ khóa tìm kiếm');
 	            </script>
             <?php } else {
-            $result = $this->adminModel->findAdmin($search, $condition);
-            return $this->view('frontend.admins.findAdmin',['result' => $result]);    
+        $result = $this->adminModel->findAdmin($search, $condition);
+        if(isset($_GET['page'])){
+            $page=$_GET['page'];
+        }
+        else $page=1;
+        $rowsPerPage=10;
+        $perRow=$page*$rowsPerPage - $rowsPerPage;
+        
+        $totalRows= mysqli_num_rows($result);
+        $totalPages=ceil($totalRows/$rowsPerPage);
+        $listPage ="";
+        for($i=1; $i <= $totalPages;$i++){
+               if($page==$i){
+                   $listPage.='<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page='.$i.'">'.$i.'</a></li>';
+        
+               }
+               else $listPage .='<li><a href="index.php?controller=admin&action=findAdmin&page='.$i.'">'.$i.'</a></li>';
+        }
+        return $this->view('frontend.admins.findAdmin',['result' => $result,
+        'listPage' => $listPage
+    ]);    
                 
-        } }
+    }}
+        
         $this->view('frontend.admins.findAdmin');        
 
     }
@@ -215,8 +239,26 @@ class AdminController extends BaseController{
                     </script>
                 <?php } else {
                 $result = $this->adminModel->findUser($search, $condition);
-                return $this->view('frontend.admins.findUser',['result' => $result]);    
-                    
+                if(isset($_GET['page'])){
+                    $page=$_GET['page'];
+                }
+                else $page=1;
+                $rowsPerPage=10;
+                $perRow=$page*$rowsPerPage - $rowsPerPage;
+                
+                $totalRows= mysqli_num_rows($result);
+                $totalPages=ceil($totalRows/$rowsPerPage);
+                $listPage ="";
+                for($i=1; $i <= $totalPages;$i++){
+                       if($page==$i){
+                           $listPage.='<li class ="active"><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
+                
+                       }
+                       else $listPage .='<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
+                }
+                return $this->view('frontend.admins.findUser',['result' => $result,
+                'listPage' => $listPage
+            ]);             
             } }
             $this->view('frontend.admins.findUser');        
     

@@ -37,7 +37,7 @@ class BaseModel extends Database {
         $sql = "INSERT INTO ${table}(${columns}) VALUES(${newValues})";
         $this->_query($sql);
     }
-    public function update($table, $id, $data, $row) {
+    public function update($table, $id, $data) {
         $dataSets = [];
         foreach ($data as $key => $val) {
             array_push($dataSets, "${key} = '". $val ."'");

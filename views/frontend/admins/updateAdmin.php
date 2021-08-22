@@ -53,13 +53,13 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
                                 <label>Role type</label>
                                 <br>
                                 Super Admin <input type="radio" name="role_type" <?php
-                                   if($row['role_type'] == 0){
+                                   if($row['role_type'] == 1){
                                       echo 'checked';
                                   }
 						             ?> value="0">
                                 <br>
                                 Admin <input type="radio" name="role_type" <?php
-                                   if($row['role_type'] == 1){
+                                   if($row['role_type'] == 2){
                                      echo 'checked';
                                    }
 						             ?> value="1">

@@ -67,6 +67,13 @@ function searchBlur() {
 						?>
                     </tbody>
                 </table>
+                <ul class="pagination" style="float: right">
+                        <li><a href="#"><<</a></li>
+                        <?php echo $listPage; ?>
+                        <li><a href="#">>></a></li>
+
+                </ul>
+
             </div>
         </div>
     </div>
