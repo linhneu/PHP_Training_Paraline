@@ -71,7 +71,7 @@ class AdminController extends BaseController{
             }
             else {
                 $avatar = $_FILES['avatar']['name'];
-                $tmp_name = $_FILES['anh_sp']['tmp_name'];
+                $tmp_name = $_FILES['avatar']['tmp_name'];
 
             }
             
@@ -105,8 +105,6 @@ class AdminController extends BaseController{
             //$upd_id = $_POST["upd_id"];
            // $del_flag = $_POST["del_flag"];
             $upd_datetime = date('Y-m-d H:s:i');
-            
-            //$row = $this->adminModel->getAllAdmin(['name', 'email','password','role_type']);
             if($_FILES['avatar']['name'] == ""){
                 $avatar =$_POST['avatar'];
             }
