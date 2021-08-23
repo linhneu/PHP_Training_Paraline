@@ -1,9 +1,9 @@
 <?php
 require_once('./core/Facebook/autoload.php'); 
 
-define('APP_ID','361145988958077');
-define('APP_SECRET', 'fa948ca2d92929ecb6f3ceef4594220c');
-define('API_VERSION', 'v2.5');
+define('APP_ID','892782478034133');
+define('APP_SECRET', 'cb73d06cfd63ce1ccd71bf8564305fae');
+define('API_VERSION', 'v2.7');
 define('FB_BASE_URL', 'http://localhost:81/PHP-training-Paraline/index.php?controller=user');
 define('BASE_URL', 'http://localhost:81/PHP-training-Paraline/index.php?controller=user');
 

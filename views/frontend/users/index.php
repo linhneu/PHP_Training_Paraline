@@ -36,7 +36,7 @@
 			<a class="nav-link" href=""><i class="fa fa-facebook">Facebook</i></a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link" href="logout.php">Logout</a>
+			<a class="nav-link" href="index.php?controller=user&action=logout.php">Logout</a>
 		  </li>    
 		</ul>
 	  </div>  

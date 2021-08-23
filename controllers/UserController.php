@@ -38,7 +38,7 @@ class UserController extends BaseController{
 	//redirect the user to the index page if it has $_GET['code']
 	if (isset($_GET['code'])) 
 	{
-		header('Location: ./');
+		header('Location:index.php?controller=user');
 	}
 	
 	
@@ -68,12 +68,10 @@ class UserController extends BaseController{
 	} 
 	else 
 	{	
-	//include ('./core/configFB.php');
-	// replace your website URL same as added in the developers.Facebook.com/apps e.g. if you used http instead of https and you used
-	$fb_login_url = $fb_helper->getLoginUrl('http://localhost/facebook1/', $permissions);
+	$fb_login_url = $fb_helper->getLoginUrl(FB_BASE_URL, $permissions);
 	}
 	$this->view('frontend.users.index',
-	['fb_login_url' => $fb_login_url,]
+	//['fb_login_url' => $fb_login_url,]
 	);
     } 
 
