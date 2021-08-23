@@ -34,7 +34,7 @@
                             <td><?php echo $rows['name'];?></td>
                             <td><?php echo $rows['email'];?></td>
                             <td>
-                                <img width="200px" src="img/<?php echo $rows['avatar'];?>" class="thumbnail">
+                                <img width="200px" src="asset/images/<?php echo $rows['avatar'];?>" class="thumbnail">
                             </td>
                             <td><?php echo $rows['facebook_id'];?></td>
                             <td><?php echo $rows['status'];?></td>

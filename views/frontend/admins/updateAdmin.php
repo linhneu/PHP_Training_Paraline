@@ -23,7 +23,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
         <div class="panel panel-primary">
             <div class="panel-heading">Update admin account </div>
             <div class="panel-body">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" action=''>
                     <div class="row" style="margin-bottom:40px">
                         <div class="col-xs-8">
                             <div class="form-group">
@@ -56,17 +56,17 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
                                    if($row['role_type'] == 1){
                                       echo 'checked';
                                   }
-						             ?> value="0">
+						             ?> value="1">
                                 <br>
                                 Admin <input type="radio" name="role_type" <?php
                                    if($row['role_type'] == 2){
                                      echo 'checked';
                                    }
-						             ?> value="1">
+						             ?> value="2">
                             </div>
 
                             <input type="submit" name="submit" value="Update" class="btn btn-primary">
-                            <a href="index.php" class="btn btn-danger">Delete</a>
+                            <a href="index.php?controller=admin&action=listAdmin" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </form>

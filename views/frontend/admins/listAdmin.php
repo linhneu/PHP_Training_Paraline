@@ -47,7 +47,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])&& isset($_SESSION['
                             <td><?php echo $rows['name'];?></td>
                             <td><?php echo $rows['email'];?></td>
                             <td>
-                                <img width="200px" src="img/<?php echo $rows['avatar'];?>" class="thumbnail">
+                                <img width="200px" src="asset/images/<?php echo $rows['avatar'];?>" class="thumbnail">
                             </td>
                             <td><?php echo $rows['role_type'];?></td>
                             <td>

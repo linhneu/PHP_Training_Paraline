@@ -72,7 +72,6 @@ class AdminController extends BaseController{
             else {
                 $avatar = $_FILES['avatar']['name'];
                 $tmp_name = $_FILES['avatar']['tmp_name'];
-
             }
             
             $data = [
@@ -116,14 +115,18 @@ class AdminController extends BaseController{
             $data = [
                 'name'=> $name,
                 'email'=> $email,
-                'password'=> $password,              
+                'password'=> $password,  
+                'avatar' => $avatar,            
                 //'upd_id'=> $upd_id,
                 'upd_datetime'=> $upd_datetime,
                 'role_type'=> $role_type,
             ];
+            if(isset($name) && isset($email) && isset($password) && isset($role_type) && isset($upd_datetime)){
             $this->adminModel->updateAdmin($id, $data);
             move_uploaded_file($tmp_name,"asset/images/".$avatar);
+            header('location: index.php?controller=admin&action=listAdmin');
         }   
+    }
             $row = $this->adminModel->getIdAdmin($id);
             $this->view('frontend.admins.updateAdmin',[
                 'row' => $row
@@ -191,15 +194,15 @@ class AdminController extends BaseController{
         if(isset($_POST["submit"])) {
             $name = $_POST["name"];
             $email = $_POST["email"];
-            $facebook_id = $_POST["facebook"];
+            $facebook_id = $_POST["facebook_id"];
             $status = $_POST["status"];
            // $ins_id = $_POST["ins_id"];
-            $upd_id = $_POST["upd_id"];
+            //$upd_id = $_POST["upd_id"];
             //$del_flag = $_POST["del_flag"];
             $upd_datetime = date('Y-m-d H:s:i');
 
             if($_FILE['avatar']['name'] =='') {
-                $error_avatar='<span style="color: red;">(*)</span>';
+                $avatar =$_POST['avatar'];
             }
             else {
                 $avatar = $_FILES['avatar']['name'];
@@ -212,10 +215,15 @@ class AdminController extends BaseController{
                 'password'=> $password,
                 'facebook_id'=> $facebook_id,
                 'status'=> $status,
-                'upd_id'=> $upd_id,
+               // 'upd_id'=> $upd_id,
                 'upd_datetime'=> $upd_datetime,
             ];
-            $this->adminModel->updateUser($id, $data);
+            if(isset($name) && isset($email) && isset($facebook_id) && isset($status) && isset($upd_datetime)){
+                $this->adminModel->editUser($id, $data);
+                move_uploaded_file($tmp_name,"asset/images/".$avatar);
+                header('location: index.php?controller=admin&action=listUser');
+            }   
+    
         }
             $row = $this->adminModel->getIdUser($id);
             $this->view('frontend.admins.editUser',[

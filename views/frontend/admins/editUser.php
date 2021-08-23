@@ -23,35 +23,45 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input required type="text" name="name"
-                                    value="<?php //if(isset($_POST['name'])){echo $_POST['name'];} else echo $row['name']; ?>"
+                                    value="<?php if(isset($_POST['name'])){echo $_POST['name'];} else echo $row['name']; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Facebook ID</label>
-                                <input required type="text" name="email"
-                                    value="<?php //if(isset($_POST['email'])){echo $_POST['email'];}else echo $row['email']; ?>"
+                                <input required type="text" name="facebook_id"
+                                    value="<?php if(isset($_POST['facebook_id'])){echo $_POST['facebook_id'];}else echo $row['facebook_id']; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
                                 <input required type="text" name="email"
-                                    value="<?php //if(isset($_POST['password'])){echo $_POST['password'];}else echo $row['password']; ?>"
+                                    value="<?php if(isset($_POST['email'])){echo $_POST['email'];}else echo $row['email']; ?>"
                                     class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>Status</label>
-                                <input required type="text" name="status"
-                                    value="<?php //if(isset($_POST['password'])){echo $_POST['password'];}else echo $row['password']; ?>"
-                                    class="form-control">
+                                <label>Role type</label>
+                                <br>
+                                Active <input type="radio" name="status" <?php
+                                   if($row['status'] == 1){
+                                      echo 'checked';
+                                  }
+						             ?> value="1">
+                                <br>
+                                Banned <input type="radio" name="status" <?php
+                                   if($row['status'] == 2){
+                                     echo 'checked';
+                                   }
+						             ?> value="2">
                             </div>
+
                             <div class="form-group">
                                 <label>Avatar</label>
                                 <input type="file" name="avatar" class="form-control">
-                                <input type="hidden" name='avatar' value="<?php //echo $row['avatar']; ?>">
+                                <input type="hidden" name='avatar' value="<?php echo $row['avatar']; ?>">
                             </div>
 
                             <input type="submit" name="submit" value="Update" class="btn btn-primary">
-                            <a href="index.php" class="btn btn-danger">Delete</a>
+                            <a href="index.php?controller=admin&action=listAdmin" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </form>
