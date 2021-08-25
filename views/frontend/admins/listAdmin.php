@@ -3,20 +3,6 @@
     include('./views/include/admin/navbar.php');
 ?>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-<?php
-
-//session_start();
-if(isset($_SESSION['email']) && isset($_SESSION['password'])&& isset($_SESSION['role_type'])) {
-    if($_SESSION['role_type'] == 2) {
-?>
-<script type="text/javascript">
-		alert('Bạn có không có quyền truy cập');
-	</script>
-<?php         die('Do not have right to access');
- } else if ($_SESSION['role_type'] == 1){ ?>
-    <script type="text/javascript">
-		alert('Bạn có quyền truy cập');
-	</script>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Admin List</h1>
@@ -66,6 +52,6 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])&& isset($_SESSION['
     </div>
 </div>
 </body>
-<?php }  }
+<?php 
 ?>
 </div>

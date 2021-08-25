@@ -1,279 +1,221 @@
 <?php
-class AdminController extends BaseController{
+class AdminController extends BaseController
+{
     public $adminModel;
-    public function __construct() {
+    public function __construct()
+    {
         $this->loadModel('AdminModel');
         $this->adminModel = new AdminModel;
     }
-    public function index(){   
-        if(isset($_POST["submit"])) {
+    public function index()
+    {
+        if (isset($_POST["submit"])) {
             $email = $_POST["email"];
             $password = $_POST["password"];
-            $role_type = $_POST["role_type"];
             $email = strip_tags($email);
             $email = addslashes($email);
             $password = strip_tags($password);
             $password = addslashes($password);
-            $row = $this->adminModel->getAdmin();
-            if ($email == "" || $password =="") {
-                echo "email hoặc password bạn không được để trống!";
-                $this->view('frontend.admins.index');
-                die;
-            }else{
-                $result = $this->adminModel->login($email, $password, $role_type);
-               if (mysqli_num_rows($result) > 0) {
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
-                $_SESSION['role_type'] = $role_type;
-                $this->view('include.admin.header',
-                [   'row' => $row]
-                );                                                             
-                header ('location: index.php?controller=admin&action=home');  
-               }else{
-                echo "tên đăng nhập hoặc mật khẩu không đúng !";
-                $this->view('frontend.admins.index');
-                die;
-               }
+            if ($email == "" || $password == "") {
+                echo MESSAGE_NULL_LOGIN_FAILED;
+            } else {
+                $result = $this->adminModel->login($email, $password);
+                $row= mysqli_fetch_assoc($result);
+                if (mysqli_num_rows($result) > 0) {
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['email'] = $email;
+                    $_SESSION['password'] = $password;
+                    $_SESSION['role_type'] = $row['role_type'];
+                    header('location: index.php?controller=admin&action=home');
+                } else {
+                    echo MESSAGE_VALIDATE_LOGIN_FAILED;
+                }
+            }
         }
-    }
-                       
         $this->view('frontend.admins.index');
-
-        }   
-        //$admins = $this->adminModel->getAllAdmin(['id','name','email', 'avatar','role_type']);
-    public function home() {
-        $this->view('frontend.admins.home');
     }
-    public function logout(){
-        //unset($_SESSION['email']);
-        //unset($_SESSION['password']);
-        //session_destroy();
-        return $this->index();
-        $this->view('frontend.admins.index');
-        //session_destroy();
-
+    public function home()
+    {
+        $this->view('frontend.admins.home',);
     }
-    public function createAdmin() {      
- 
-        if(isset($_POST["submit"])) {
-            //$id = $_POST["id"];
-            $name = $_POST["name"];
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-            $role_type = $_POST["role_type"];
-            $ins_id = $_POST["ins_id"];
-           // $upd_id = $_POST["upd_id"];
-            $del_flag = $_POST["del_flag"];
-            $ins_datetime =  date('Y-m-d H:s:i');
-            
-            if($_FILE['avatar']['name'] =='') {
-                $error_avatar='<span style="color: red;">(*)</span>';
-            }
-            else {
-                $avatar = $_FILES['avatar']['name'];
-                $tmp_name = $_FILES['avatar']['tmp_name'];
-            }
-            
-            $data = [
-                'name'=> $name,
-                'email'=> $email,
-                'password'=> $password,
-                'ins_id'=> $ins_id,
-                'upd_id'=> $upd_id,
-                'ins_datetime'=> $ins_datetime,
-                'upd_datetime'=> $upd_datetime,
-                'role_type'=> $role_type,
-                'del_flag'=> $del_flag,
-            ];
-            $this->adminModel->createAdmin($data); 
-            move_uploaded_file($tmp_name,"asset/images/".$avatar);
-   
-           // return $this->view('frontend.admins.home',);       
-        }
-        $this->view('frontend.admins.createAdmin',);        
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        header('location: index.php?controller=admin&action=index');
     }
-    public function updateAdmin(){
-        $id = $_GET['id'];
-        if(isset($_POST["submit"])) {
-           
-            $name = $_POST["name"];
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-            $role_type = $_POST["role_type"];
-           // $ins_id = $_POST["ins_id"];
-            //$upd_id = $_POST["upd_id"];
-           // $del_flag = $_POST["del_flag"];
-            $upd_datetime = date('Y-m-d H:s:i');
-            if($_FILES['avatar']['name'] == ""){
-                $avatar =$_POST['avatar'];
-            }
-            else {
-                $avatar = $_FILES['avatar']['name'];
-                $tmp_name = $_FILES['avatar']['tmp_name'];
-            }        
-
-            $data = [
-                'name'=> $name,
-                'email'=> $email,
-                'password'=> $password,  
-                'avatar' => $avatar,            
-                //'upd_id'=> $upd_id,
-                'upd_datetime'=> $upd_datetime,
-                'role_type'=> $role_type,
-            ];
-            if(isset($name) && isset($email) && isset($password) && isset($role_type) && isset($upd_datetime)){
-            $this->adminModel->updateAdmin($id, $data);
-            move_uploaded_file($tmp_name,"asset/images/".$avatar);
-            header('location: index.php?controller=admin&action=listAdmin');
-        }   
-    }
-            $row = $this->adminModel->getIdAdmin($id);
-            $this->view('frontend.admins.updateAdmin',[
-                'row' => $row
-                 ]);
-
-    }
-    public function deleteAdmin() {
-        $id = $_GET['id'];
-        $this->adminModel->deleteAdmin($id);
-        return $this->view('frontend.admins.listAdmin');
-    }
-    public function findAdmin() {
-       if(isset($_POST['submit']))  {
-        $condition = 0;
-        $search = addslashes($_POST['search']);
-            if(empty($search)) { ?>
-                <script type="text/javascript">
-		        alert('Bạn chưa nhập từ khóa tìm kiếm');
-	            </script>
-            <?php } else {
-        $result = $this->adminModel->findAdmin($search, $condition);
-        if(isset($_GET['page'])){
-            $page=$_GET['page'];
-        }
-        else $page=1;
-        $rowsPerPage=10;
-        $perRow=$page*$rowsPerPage - $rowsPerPage;
-        
-        $totalRows= mysqli_num_rows($result);
-        $totalPages=ceil($totalRows/$rowsPerPage);
-        $listPage ="";
-        for($i=1; $i <= $totalPages;$i++){
-               if($page==$i){
-                   $listPage.='<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page='.$i.'">'.$i.'</a></li>';
-        
-               }
-               else $listPage .='<li><a href="index.php?controller=admin&action=findAdmin&page='.$i.'">'.$i.'</a></li>';
-        }
-        return $this->view('frontend.admins.findAdmin',['result' => $result,
-        'listPage' => $listPage
-    ]);    
-                
-    }}
-        
-        $this->view('frontend.admins.findAdmin');        
-
-    }
-
-    public function listAdmin(){
-        
+    public function listAdmin()
+    {
+        $this->permissionAdmin();
         $result = $this->adminModel->getAdmin();
-        return $this->view('frontend.admins.listAdmin',
-        [ 'result'=>$result]
-    );
+        return $this->view(
+            'frontend.admins.listAdmin',
+            ['result' => $result]
+        );
     }
-    public function listUser(){
-        $result = $this->adminModel->getUser();
-        return $this->view('frontend.admins.listUser',
-        [  'result'=>$result]
-    );     
-    }
-
-    public function editUser(){
-        $id = $_GET['id'];
-        if(isset($_POST["submit"])) {
-            $name = $_POST["name"];
-            $email = $_POST["email"];
-            $facebook_id = $_POST["facebook_id"];
-            $status = $_POST["status"];
-           // $ins_id = $_POST["ins_id"];
-            //$upd_id = $_POST["upd_id"];
-            //$del_flag = $_POST["del_flag"];
-            $upd_datetime = date('Y-m-d H:s:i');
-
-            if($_FILE['avatar']['name'] =='') {
-                $avatar =$_POST['avatar'];
-            }
-            else {
+    public function createAdmin()
+    {
+        $this->permissionAdmin();
+        if (isset($_POST["submit"])) {
+            if ($_FILES['avatar']['name'] == '') {
+                echo MESSAGE_NOT_NULL_FORM;
+            } else {
                 $avatar = $_FILES['avatar']['name'];
-                $tmp_name = $_FILES['anh_sp']['tmp_name'];
-
+                $tmp_name = $_FILES['avatar']['tmp_name'];
             }
             $data = [
-                'name'=> $name,
-                'email'=> $email,
-                'password'=> $password,
-                'facebook_id'=> $facebook_id,
-                'status'=> $status,
-               // 'upd_id'=> $upd_id,
-                'upd_datetime'=> $upd_datetime,
+                'name' => isset($_POST["name"]) ? $_POST["name"] : null,
+                'email' => isset($_POST["email"]) ? $_POST["email"] : null,
+                'password' => isset($_POST["password"]) ? $_POST["password"] : null,
+                'role_type' => isset($_POST["role_type"]) ? $_POST["role_type"] : null,
+                'avatar' => $avatar
             ];
-            if(isset($name) && isset($email) && isset($facebook_id) && isset($status) && isset($upd_datetime)){
-                $this->adminModel->editUser($id, $data);
-                move_uploaded_file($tmp_name,"asset/images/".$avatar);
-                header('location: index.php?controller=admin&action=listUser');
-            }   
-    
+            $this->adminModel->createAdmin($data);
+            move_uploaded_file($tmp_name, "asset/images/" . $avatar);
+            header('location: index.php?controller=admin&action=listAdmin');
         }
-            $row = $this->adminModel->getIdUser($id);
-            $this->view('frontend.admins.editUser',[
-                'row' => $row
-                 ]);
-       
+        $this->view('frontend.admins.createAdmin',);
     }
-    public function deleteUser() {
+    public function updateAdmin()
+    {
+        $this->permissionAdmin();
         $id = $_GET['id'];
-        $this->adminModel->deleteUser($id);
+        if (isset($_POST["submit"])) {
+            if ($_FILES['avatar']['name'] == "") {
+                $avatar = $_POST['avatar'];
+            } else {
+                $avatar = $_FILES['avatar']['name'];
+                $tmp_name = $_FILES['avatar']['tmp_name'];
+            }
+            $data = [
+                'name' => isset($_POST["name"]) ? $_POST["name"] : null,
+                'email' => isset($_POST["email"]) ? $_POST["email"] : null,
+                'password' => isset($_POST["password"]) ? $_POST["password"] : null,
+                'role_type' => isset($_POST["role_type"]) ? $_POST["role_type"] : null,
+                'avatar' => $avatar,
+            ];
+            $this->adminModel->updateAdmin($id, $data);
+            move_uploaded_file($tmp_name, "asset/images/" . $avatar);
+            header('location: index.php?controller=admin&action=listAdmin');
+        } 
+        $row = $this->adminModel->getIdAdmin($id);
+        $this->view('frontend.admins.updateAdmin', [
+            'row' => $row
+        ]);
     }
-    public function findUser() {
-        if(isset($_POST['submit']))  {
-            $condition = 0;
+    public function deleteAdmin()
+    {
+        $this->permissionAdmin();
+        $id = $_GET['id'];
+        $this->adminModel->deleteAdmin($id, $del_flag = DEL_FLAG_BANNED);
+        header('location: index.php?controller=admin&action=listAdmin');
+        
+    }
+    public function findAdmin()
+    {
+        $this->permissionAdmin();
+        if (isset($_POST['submit'])) {
+            $condition = DEL_FLAG_ACTIVE;
             $search = addslashes($_POST['search']);
-                if(empty($search)) { ?>
-                    <script type="text/javascript">
-                    alert('Bạn chưa nhập từ khóa tìm kiếm');
-                    </script>
-                <?php } else {
-                $result = $this->adminModel->findUser($search, $condition);
-                if(isset($_GET['page'])){
-                    $page=$_GET['page'];
-                }
-                else $page=1;
-                $rowsPerPage=10;
-                $perRow=$page*$rowsPerPage - $rowsPerPage;
-                
-                $totalRows= mysqli_num_rows($result);
-                $totalPages=ceil($totalRows/$rowsPerPage);
-                $listPage ="";
-                for($i=1; $i <= $totalPages;$i++){
-                       if($page==$i){
-                           $listPage.='<li class ="active"><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
-                
-                       }
-                       else $listPage .='<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
-                }
-                return $this->view('frontend.admins.findUser',['result' => $result,
-                'listPage' => $listPage
-            ]);             
-            } }
-            $this->view('frontend.admins.findUser');        
-    
-    
+            if (empty($search)) {
+                echo MESSGAE_NOT_NULL_KEY;
+            } else {
+                $result = $this->adminModel->findAdmin($search, $condition);
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
+                } else $page = 1;
+                $rowsPerPage = ROW_PER_PAGE;
+                $perRow = $page * $rowsPerPage - $rowsPerPage;
+                $totalRows = mysqli_num_rows($result);
+                $totalPages = ceil($totalRows / $rowsPerPage);
+                $listPage = "";
+                return $this->view('frontend.admins.findAdmin', [
+                    'result' => $result,
+                    'listPage' => $listPage,
+                    'page' => $page,
+                    'totalPages' => $totalPages
+                ]);
+            }
+        }
+        $this->view('frontend.admins.findAdmin');
     }
-    public function introduce() {
-        $this->view('frontend.admins.introduce',);        
-
+    public function listUser()
+    {
+        $result = $this->adminModel->getUser();
+        return $this->view(
+            'frontend.admins.listUser',
+            ['result' => $result]
+        );
+    }
+    public function editUser()
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            if (isset($_POST["submit"])) {
+                if ($_FILES['avatar']['name'] == '') {
+                    $avatar = $_POST['avatar'];
+                } else {
+                    $avatar = $_FILES['avatar']['name'];
+                    $tmp_name = $_FILES['avatar']['tmp_name'];
+                }
+                $data = [
+                    'name' => isset($_POST["name"]) ? $_POST["name"] : null,
+                    'email' => isset($_POST["email"]) ? $_POST["email"] : null,
+                    'facebook_id' => isset($_POST["facebook_id"]) ? $_POST["facebook_id"] : null,
+                    'status' => isset($_POST["status"]) ? $_POST["status"] : null,
+                ];
+                $this->adminModel->editUser($id, $data);
+                move_uploaded_file($tmp_name, "asset/images/" . $avatar);
+                header('location: index.php?controller=admin&action=listUser');
+            }
+        }
+        $row = $this->adminModel->getIdUser($id);
+        $this->view('frontend.admins.editUser', [
+            'row' => $row
+        ]);
+    }
+    public function deleteUser()
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $condition = 1;
+            $this->adminModel->deleteUser($id, $condition);
+            return $this->view('frontend.admins.listUser');
+        }
+    }
+    public function findUser()
+    {
+        if (isset($_POST['submit'])) {
+            $condition = DEL_FLAG_ACTIVE;
+            $search = addslashes($_POST['search']);
+            if (empty($search)) {
+                echo MESSGAE_NOT_NULL_KEY;
+            } else {
+                $result = $this->adminModel->findUser($search, $condition);
+                if (isset($_GET['page'])) {
+                    $page = $_GET['page'];
+                } else $page = 1;
+                $rowsPerPage = ROW_PER_PAGE;
+                //$perRow = $page * $rowsPerPage - $rowsPerPage;
+                $totalRows = mysqli_num_rows($result);
+                $totalPages = ceil($totalRows / $rowsPerPage);
+                $listPage = "";
+                return $this->view('frontend.admins.findUser', [
+                    'result' => $result,
+                    'listPage' => $listPage,
+                    'page' => $page,
+                    'totalPages' => $totalPages
+                ]);
+            }
+        }
+        $this->view('frontend.admins.findUser');
+    }
+    public function permissionAdmin()
+    {
+        if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
+            if ($_SESSION['role_type'] == ROLE_ADMIN) {
+                exit(MESSAGE_NOT_PERMISSION);
+            }
+        }
     }
 }
-
-    

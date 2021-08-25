@@ -3,13 +3,6 @@
     include('./views/include/admin/navbar.php');
 ?>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-
-<?php
-if(isset($_SESSION['email']) && isset($_SESSION['password'])) {
-    if($_SESSION['role_type'] == 2) {
-        die('Do not have right to access');
-    }
-}
 ?>
 <div class="row">
     <div class="col-lg-12">

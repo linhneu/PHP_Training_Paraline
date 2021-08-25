@@ -1,4 +1,3 @@
-
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
         <ul class="nav menu">
             <li role="presentation" class="divider"></li>

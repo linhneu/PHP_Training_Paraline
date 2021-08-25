@@ -1,10 +1,3 @@
-<?php
-//session_start();
-if(!isset($_SESSION['email']) && !isset($_SESSION['password'])){
-    header('location: index.php?controller=admin&action=index');
-    echo "Login is failed";
-}
-?>
 <!DOCTYPE html>
 <html>
 
@@ -27,13 +20,14 @@ if(!isset($_SESSION['email']) && !isset($_SESSION['password'])){
                 <a class="navbar-brand" href="index.php">Admin</a>
                 <ul class="user-menu">
                     <li class="dropdown pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
-                        Hello Admin <?php 
-                           // echo $row['email']; 
-                            ?> <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu"  >
-                            <li><a href="index.php?controller=admin&action=logout"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg>
-                            Logout</a></li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user">
+                                <use xlink:href="#stroked-male-user"></use>
+                            </svg>
+                            Hello <?php echo $_SESSION['email'];?><span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="index.php?controller=admin&action=logout"><svg class="glyph stroked cancel">
+                                        <use xlink:href="#stroked-cancel"></use>
+                                    </svg>Logout</a></li>
                         </ul>
                     </li>
                 </ul>

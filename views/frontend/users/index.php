@@ -36,7 +36,7 @@
 			<a class="nav-link" href=""><i class="fa fa-facebook">Facebook</i></a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link" href="index.php?controller=user&action=logout.php">Logout</a>
+			<a class="nav-link" href="index.php?controller=user&action=logout">Logout</a>
 		  </li>    
 		</ul>
 	  </div>  
@@ -47,7 +47,9 @@
 		<div class="col-sm-2">
 		  <h2>About Me</h2>
 		  <h5>Profile Picture:</h5>
-		  <div class="fakeimg"><?php echo  $_SESSION['fb_user_pic']; ?></div>
+		  <div class="fakeimg">
+			  <img width="200px" src = "<?php echo  $_SESSION['fb_user_pic']; ?>" >
+			</div>
 		  <hr class="d-sm-none">
 		</div>
 		<div class="col-sm-2"></div>

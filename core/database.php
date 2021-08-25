@@ -1,19 +1,17 @@
-
 <?php
- class Database {
-    const HOST = 'localhost';
-    const USERNAME = 'root';
-    const PASSWORD = '';
-    const DB_NAME = 'php_training_paraline';
+interface Database
+{
+    public function _query($sql);
 
-    private $connect;
+    public function create($table, $data = []);
+    
+    public function update($table, $id, $data = []);
 
-public function connect() {
-    $connect = mysqli_connect(self::HOST, self::USERNAME, self::PASSWORD, self::DB_NAME);
-    mysqli_set_charset($connect, "uft8");
-    if(mysqli_connect_error() == 0) {
-        return $connect;
-    }
-    return false;
-}
+    public function delete($table, $id, $del_flag);
+
+    public function find($table, $search, $del_flag);
+
+    public function getAll($table, $select = []);
+
+    public function getPage($table, $del_flag);
 }
