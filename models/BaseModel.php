@@ -92,10 +92,10 @@ abstract class BaseModel implements Database
         //return mysqli_fetch_assoc($query);
         //return mysqli_num_rows($query);
     }
-    public function getPage($table, $del_flag = DEL_FLAG_ACTIVE) {
+    public function getPage($table, $currentPage, $totalPages, $del_flag = DEL_FLAG_ACTIVE) {
         $rowsPerPage = ROW_PER_PAGE;
         $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-        $totalRows = "SELECT COUNT (*) FROM ${table} WHERE del_flag = ${del_flag} ";
+        $totalRows = (int)"SELECT COUNT (*) FROM ${table} WHERE del_flag = ${del_flag} ";
         $totalPages = ceil($totalRows / $rowsPerPage);
 
         if($currentPage < 1) {

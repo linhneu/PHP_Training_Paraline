@@ -62,20 +62,15 @@ include('./views/include/admin/navbar.php');
                             </tbody>
                         </table>
                         <ul class="pagination" style="float: right">
-                            <li><a href="#">
-                                    <<< /a>
-                            </li>
+                            <!-- <li><a href="#"> << </li> -->
                             <?php
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                if ($page == $i) {
-                                    echo $listPage .= '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
-                                } else echo $listPage .= '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
-                            }
+                                for ($i = 1; $i <= $totalPages; $i++) {
+                                    if ($currentPage == $i) {
+                                        echo $listPage .= '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                                    } else echo $listPage .= '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                                }
                             ?>
-                            <li><a href="#">>></a></li>
-
-                        </ul>
-
+                            <!-- <li><a href="#"> >> </a></li> -->
                     </div>
                 </div>
             </div>

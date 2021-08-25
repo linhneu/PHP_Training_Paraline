@@ -120,20 +120,19 @@ class AdminController extends BaseController
             if (empty($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
-                $result = $this->adminModel->findAdmin($search, $condition);
-                if (isset($_GET['page'])) {
-                    $page = $_GET['page'];
-                } else $page = 1;
                 $rowsPerPage = ROW_PER_PAGE;
-                $perRow = $page * $rowsPerPage - $rowsPerPage;
+                $result = $this->adminModel->findAdmin($search, $condition, $rowsPerPage);
+                $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $totalRows = mysqli_num_rows($result);
                 $totalPages = ceil($totalRows / $rowsPerPage);
                 $listPage = "";
+                //$perRow = $currentPage * $rowsPerPage - $rowsPerPage;
                 return $this->view('frontend.admins.findAdmin', [
                     'result' => $result,
                     'listPage' => $listPage,
-                    'page' => $page,
+                    'currentPage' => $currentPage,
                     'totalPages' => $totalPages
+
                 ]);
             }
         }
@@ -192,18 +191,16 @@ class AdminController extends BaseController
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
                 $result = $this->adminModel->findUser($search, $condition);
-                if (isset($_GET['page'])) {
-                    $page = $_GET['page'];
-                } else $page = 1;
                 $rowsPerPage = ROW_PER_PAGE;
-                //$perRow = $page * $rowsPerPage - $rowsPerPage;
+                $result = $this->adminModel->findAdmin($search, $condition, $rowsPerPage);
+                $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $totalRows = mysqli_num_rows($result);
                 $totalPages = ceil($totalRows / $rowsPerPage);
                 $listPage = "";
                 return $this->view('frontend.admins.findUser', [
                     'result' => $result,
                     'listPage' => $listPage,
-                    'page' => $page,
+                    'currentPage' => $currentPage,
                     'totalPages' => $totalPages
                 ]);
             }

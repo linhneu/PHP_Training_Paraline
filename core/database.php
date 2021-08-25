@@ -13,5 +13,4 @@ interface Database
 
     public function getAll($table, $select = []);
 
-    public function getPage($table, $del_flag);
 }

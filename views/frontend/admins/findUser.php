@@ -62,9 +62,6 @@ include('./views/include/admin/navbar.php');
                             </tbody>
                         </table>
                         <ul class="pagination" style="float: right">
-                            <li><a href="#">
-                                    <<< /a>
-                            </li>
                             <?php 
                                 for ($i = 1; $i <= $totalPages; $i++) {
                                     if ($page == $i) {
@@ -72,8 +69,6 @@ include('./views/include/admin/navbar.php');
                                     } else echo $listPage .= '<li><a href="index.php?controller=admin&action=findUser&page=' . $i . '">' . $i . '</a></li>';
                                     }
                             ?>
-                            <li><a href="#">>></a></li>
-
                         </ul>
 
                     </div>
