@@ -9,7 +9,7 @@ interface Database
 
     public function delete($table, $id, $del_flag);
 
-    public function find($table, $search, $del_flag);
+    public function find($table, $search, $del_flag, $rowsPerPage);
 
     public function getAll($table, $select = []);
 

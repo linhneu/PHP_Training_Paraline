@@ -107,7 +107,8 @@ class AdminController extends BaseController
     {
         $this->permissionAdmin();
         $id = $_GET['id'];
-        $this->adminModel->deleteAdmin($id, $del_flag = DEL_FLAG_BANNED);
+        $del_flag = DEL_FLAG_BANNED;
+        $this->adminModel->deleteAdmin($id, $del_flag);
         header('location: index.php?controller=admin&action=listAdmin');
         
     }
@@ -120,13 +121,13 @@ class AdminController extends BaseController
             if (empty($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
+                $del_flag = DEL_FLAG_ACTIVE;
                 $rowsPerPage = ROW_PER_PAGE;
-                $result = $this->adminModel->findAdmin($search, $condition, $rowsPerPage);
+                $result = $this->adminModel->findAdmin($search, $del_flag, $rowsPerPage);
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $totalRows = mysqli_num_rows($result);
                 $totalPages = ceil($totalRows / $rowsPerPage);
-                $listPage = "";
-                //$perRow = $currentPage * $rowsPerPage - $rowsPerPage;
+                $listPage = "";             
                 return $this->view('frontend.admins.findAdmin', [
                     'result' => $result,
                     'listPage' => $listPage,
@@ -190,9 +191,8 @@ class AdminController extends BaseController
             if (empty($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
-                $result = $this->adminModel->findUser($search, $condition);
                 $rowsPerPage = ROW_PER_PAGE;
-                $result = $this->adminModel->findAdmin($search, $condition, $rowsPerPage);
+                $result = $this->adminModel->findUser($search, $condition, $rowsPerPage);
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $totalRows = mysqli_num_rows($result);
                 $totalPages = ceil($totalRows / $rowsPerPage);

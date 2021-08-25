@@ -70,8 +70,8 @@ class UserController extends BaseController
 				echo 'Facebook SDK Error: ' . $e->getMessage();
 				exit;
 			}
-		} else 
-			$fb_login_url = $fb_helper->getLoginUrl(FB_BASE_URL, $permissions);
+		} 
+			$fb_login_url = $fb_helper->getLoginUrl(FB_BASE_URL, $permissions); 
 			$this->view('frontend.users.index',
 			['fb_login_url' => $fb_login_url,]
 		);

@@ -12,7 +12,6 @@ abstract class BaseModel implements Database
         }
         return false;
     }
-
     public function _query($sql)
     {
         return mysqli_query($this->connect, $sql);
@@ -62,23 +61,16 @@ abstract class BaseModel implements Database
         WHERE id = ${id}";
         $this->_query($sql);
     }
-    public function delete($table, $id, $del_flag = DEL_FLAG_BANNED)
+    public function delete($table, $id, $del_flag)
     {
         $sql = "DELETE FROM ${table} WHERE id = ${id} and del_flag = ${del_flag}";
         $this->_query($sql);
     }
-    public function find($table, $search, $del_flag = DEL_FLAG_ACTIVE)
+    public function find($table, $search, $del_flag, $rowsPerPage)
     {
         $sql = "SELECT * FROM ${table} WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
-        del_flag = ${del_flag}  ";
-        $query = $this->_query($sql);
-        return mysqli_fetch_assoc($query);
-
-        while ($row = mysqli_fetch_assoc($query)) {
-            array_push($data, $row);
-        }
-        return $data;
-        
+        del_flag = ${del_flag} LIMIT ${rowsPerPage}  ";
+        $this->_query($sql);
     }
     public function getByQuery($sql)
     {
@@ -89,8 +81,6 @@ abstract class BaseModel implements Database
     {
         $query = $this->_query($sql);
         $data = [];
-        //return mysqli_fetch_assoc($query);
-        //return mysqli_num_rows($query);
     }
     public function getPage($table, $currentPage, $totalPages, $del_flag = DEL_FLAG_ACTIVE) {
         $rowsPerPage = ROW_PER_PAGE;
