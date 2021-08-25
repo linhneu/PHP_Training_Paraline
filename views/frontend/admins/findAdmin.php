@@ -53,7 +53,7 @@ include('./views/include/admin/navbar.php');
                                         <td><?php echo $row['name']; ?></td>
                                         <td><?php echo $row['email']; ?></td>
                                         <td>
-                                            <img width="200px" src="img/<?php echo $row['avatar']; ?>" class="thumbnail">
+                                            <img width="200px" src="asset/images/<?php echo $row['avatar']; ?>" class="thumbnail">
                                         </td>
                                         <td><?php echo $row['role_type']; ?></td>
                                     </tr>

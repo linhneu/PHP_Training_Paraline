@@ -56,9 +56,9 @@ class UserController extends BaseController
 					//'upd_datetime' => $upd_datetime,
 					'status' => 1,
 				];
-				if (isset($_SESSION['fb_user_id']) && isset($_SESSION['fb_user_name']) && isset($_SESSION['fb_user_email']) && isset($_SESSION['fb_user_pic'])) {
-					$this->userModel->insertUser($data);
-					//move_uploaded_file($_SESSION['fb_user_pic']); 
+				if(!isset($_SESSION['fb_user_name'])) {
+				$this->userModel->insertUser($data);
+				// 	//move_uploaded_file($picture['url']); 
 				}
 			} catch (FacebookResponseException $e) {
 				echo 'Facebook API Error: ' . $e->getMessage();
@@ -70,17 +70,17 @@ class UserController extends BaseController
 				echo 'Facebook SDK Error: ' . $e->getMessage();
 				exit;
 			}
-		} else {
+		} else 
 			$fb_login_url = $fb_helper->getLoginUrl(FB_BASE_URL, $permissions);
-		}
-		$this->view(
-			'frontend.users.index',
+			$this->view('frontend.users.index',
 			['fb_login_url' => $fb_login_url,]
 		);
+		
 	}
 	public function logout()
 	{
+		session_unset();
 		session_destroy();
-		return $this->index();
+		header('location:index.php?controller=user');
 	}
 }
