@@ -21,15 +21,15 @@ include('./views/include/admin/navbar.php');
         }
     </script>
     <div id="search" class="col-md-6 col-sm-12 col-xs-12">
-        <form method="post" name="sform" action="index.php?controller=admin&action=findUser">
+        <form method="post" name="sform" action="" >
             <input onfocus="searchFocus();" onblur="searchBlur();" type="text" name="search" value="">
-            <input type="submit" name="submit" value="search">
+            <input type="submit" name="submit"  value="search">
         </form>
     </div>
     <?php
     if (isset($_POST['search'])) {
     ?>
-        <div class="row" style="">
+        <div class="row" >
             <div class="col-xs-12 col-md-12 col-lg-12">
                 <div class="bootstrap-table">
                     <div class="table-responsive">
@@ -65,7 +65,7 @@ include('./views/include/admin/navbar.php');
                             <?php 
                                 for ($i = 1; $i <= $totalPages; $i++) {
                                     if ($currentPage == $i) {
-                                    echo '<li><span>'.$i.'</span></li>';
+                                    echo '<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
                                     } else  echo '<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
                                 }
                             ?>

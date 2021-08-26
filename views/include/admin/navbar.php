@@ -13,7 +13,7 @@
             <li><a href="index.php?controller=admin&action=findAdmin"><svg class="glyph stroked clipboard with paper">
                         <use xlink:href="#stroked-clipboard-with-paper"></use>
                     </svg> Search Admin </a></li>
-            <li><a href="index.php?controller=admin&action=findUser"><svg class="glyph stroked printer">
+            <li><a href="index.php?controller=admin&action=findUser&page="><svg class="glyph stroked printer">
                         <use xlink:href="#stroked-printer"></use>
                     </svg> Search User </a></li>
             <li role="presentation" class="divider"></li>
