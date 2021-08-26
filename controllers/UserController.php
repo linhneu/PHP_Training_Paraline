@@ -58,7 +58,7 @@ class UserController extends BaseController
 				];
 				if(!isset($_SESSION['fb_user_name'])) {
 				$this->userModel->insertUser($data);
-				// 	//move_uploaded_file($picture['url']); 
+				//move_uploaded_file($picture['url']); 
 				}
 			} catch (FacebookResponseException $e) {
 				echo 'Facebook API Error: ' . $e->getMessage();

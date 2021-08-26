@@ -11,7 +11,6 @@
 <!--/.row-->
 <div class="row" style="">
     <div class="col-xs-12 col-md-12 col-lg-12">
-        <a href="index.php?controller=admin&action=createAdmin" class="btn btn-primary">Create User</a>
         <div class="bootstrap-table">
             <div class="table-responsive">
                 <table class="table table-bordered" style="margin-top:20px;">

@@ -64,10 +64,10 @@ include('./views/include/admin/navbar.php');
                         <ul class="pagination" style="float: right">
                             <?php 
                                 for ($i = 1; $i <= $totalPages; $i++) {
-                                    if ($page == $i) {
-                                    echo $listPage .= '<li class ="active"><a href="index.php?controller=admin&action=findUser&page=' . $i . '">' . $i . '</a></li>';
-                                    } else echo $listPage .= '<li><a href="index.php?controller=admin&action=findUser&page=' . $i . '">' . $i . '</a></li>';
-                                    }
+                                    if ($currentPage == $i) {
+                                    echo '<li><span>'.$i.'</span></li>';
+                                    } else  echo '<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
+                                }
                             ?>
                         </ul>
 

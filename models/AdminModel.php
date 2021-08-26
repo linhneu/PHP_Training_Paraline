@@ -21,10 +21,10 @@ class AdminModel extends BaseModel
     {
         return $this->delete(self::TABLE, $id, $del_flag);
     }
-    public function findAdmin($search, $del_flag, $rowsPerPage)
+    public function findAdmin($search, $del_flag, $start, $rowsPerPage)
     {
         $sql = "SELECT * FROM " . self::TABLE . " WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
-        del_flag = ${del_flag}  LIMIT ${rowsPerPage}";
+        del_flag = ${del_flag}  LIMIT ${start}, ${rowsPerPage}";
         return mysqli_query($this->connect, $sql);
 
     }
@@ -49,10 +49,16 @@ class AdminModel extends BaseModel
     {
         return $this->update(self::Table, $id, $data);
     }
-    public function findUser($search,$del_flag, $rowsPerPage)
+    public function findUser($search,$del_flag, $start, $rowsPerPage)
     {
         $sql = "SELECT * FROM " . self::Table . " WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
-        del_flag = ${del_flag}  LIMIT ${rowsPerPage} ";
+        del_flag = ${del_flag}  LIMIT ${start}, ${rowsPerPage} ";
+        return mysqli_query($this->connect, $sql);
+    }
+    public function listFindUser($search,$del_flag)
+    {
+        $sql = "SELECT * FROM " . self::Table . " WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
+        del_flag = ${del_flag}";
         return mysqli_query($this->connect, $sql);
     }
     public function deleteUser($id, $del_flag)

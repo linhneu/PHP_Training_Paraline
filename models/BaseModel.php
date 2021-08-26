@@ -77,20 +77,4 @@ abstract class BaseModel implements Database
         $query = $this->_query($sql);
         return mysqli_fetch_assoc($query);
     }
-    public function getPage($table, $currentPage, $totalPages, $del_flag = DEL_FLAG_ACTIVE) {
-        $rowsPerPage = ROW_PER_PAGE;
-        $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-        $totalRows = (int)"SELECT COUNT (*) FROM ${table} WHERE del_flag = ${del_flag} ";
-        $totalPages = ceil($totalRows / $rowsPerPage);
-
-        if($currentPage < 1) {
-            $currentPage = 1;
-        }
-        if($currentPage > $totalPages) {
-            $currentPage = $totalPages;
-        }
-        $perRow = $currentPage * $rowsPerPage - $rowsPerPage;
-        $sql = "SELECT * FROM ${table} WHERE del_flag = ${del_flag} ORDER BY id LIMIT ${perRow}, ${rowsPerPage} ";
-        return $this->_query($sql);
-    }
 }

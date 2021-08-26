@@ -122,21 +122,20 @@ class AdminController extends BaseController
         $this->checkLogin();
         $this->permissionAdmin();
         if (isset($_POST['submit'])) {
-            $condition = DEL_FLAG_ACTIVE;
+            $del_flag = DEL_FLAG_ACTIVE;
             $search = addslashes($_POST['search']);
             if (empty($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
                 $del_flag = DEL_FLAG_ACTIVE;
                 $rowsPerPage = ROW_PER_PAGE;
-                $result = $this->adminModel->findAdmin($search, $del_flag, $rowsPerPage);
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                $start = ($currentPage - 1) * $rowsPerPage;
+                $result = $this->adminModel->findAdmin($search, $del_flag, $start, $rowsPerPage);
                 $totalRows = mysqli_num_rows($result);
                 $totalPages = ceil($totalRows / $rowsPerPage);
-                $listPage = "";             
                 return $this->view('frontend.admins.findAdmin', [
                     'result' => $result,
-                    'listPage' => $listPage,
                     'currentPage' => $currentPage,
                     'totalPages' => $totalPages
 
@@ -200,15 +199,16 @@ class AdminController extends BaseController
             if (empty($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
+                $del_flag = DEL_FLAG_ACTIVE;
                 $rowsPerPage = ROW_PER_PAGE;
-                $result = $this->adminModel->findUser($search, $del_flag, $rowsPerPage);
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-                $totalRows = mysqli_num_rows($result);
+                $start = ($currentPage -1) * $rowsPerPage;
+                $result = $this->adminModel->findUser($search, $del_flag, $start, $rowsPerPage);
+                $total = $this->adminModel->listFindUser($search, $del_flag);
+                $totalRows = mysqli_num_rows($total);
                 $totalPages = ceil($totalRows / $rowsPerPage);
-                $listPage = "";
                 return $this->view('frontend.admins.findUser', [
                     'result' => $result,
-                    'listPage' => $listPage,
                     'currentPage' => $currentPage,
                     'totalPages' => $totalPages
                 ]);
