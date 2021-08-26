@@ -36,6 +36,7 @@ class AdminController extends BaseController
     }
     public function home()
     {
+        $this->checkLogin();
         $this->view('frontend.admins.home',);
     }
     public function logout()
@@ -46,6 +47,7 @@ class AdminController extends BaseController
     }
     public function listAdmin()
     {
+        $this->checkLogin();
         $this->permissionAdmin();
         $result = $this->adminModel->getAdmin();
         return $this->view(
@@ -55,6 +57,7 @@ class AdminController extends BaseController
     }
     public function createAdmin()
     {
+        $this->checkLogin();
         $this->permissionAdmin();
         if (isset($_POST["submit"])) {
             if ($_FILES['avatar']['name'] == '') {
@@ -78,6 +81,7 @@ class AdminController extends BaseController
     }
     public function updateAdmin()
     {
+        $this->checkLogin();
         $this->permissionAdmin();
         $id = $_GET['id'];
         if (isset($_POST["submit"])) {
@@ -105,6 +109,7 @@ class AdminController extends BaseController
     }
     public function deleteAdmin()
     {
+        $this->checkLogin();
         $this->permissionAdmin();
         $id = $_GET['id'];
         $del_flag = DEL_FLAG_BANNED;
@@ -114,6 +119,7 @@ class AdminController extends BaseController
     }
     public function findAdmin()
     {
+        $this->checkLogin();
         $this->permissionAdmin();
         if (isset($_POST['submit'])) {
             $condition = DEL_FLAG_ACTIVE;
@@ -141,6 +147,7 @@ class AdminController extends BaseController
     }
     public function listUser()
     {
+        $this->checkLogin();
         $result = $this->adminModel->getUser();
         return $this->view(
             'frontend.admins.listUser',
@@ -149,6 +156,7 @@ class AdminController extends BaseController
     }
     public function editUser()
     {
+        $this->checkLogin();
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             if (isset($_POST["submit"])) {
@@ -176,14 +184,16 @@ class AdminController extends BaseController
     }
     public function deleteUser()
     {
-            $id = isset($_GET['id']) ? $_GET['id'] : null;
-            $del_flag = DEL_FLAG_BANNED;
-            $this->adminModel->deleteUser($id, $del_flag);
-            return $this->view('frontend.admins.listUser');
+        $this->checkLogin();
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        $del_flag = DEL_FLAG_BANNED;
+        $this->adminModel->deleteUser($id, $del_flag);
+        return $this->view('frontend.admins.listUser');
         
     }
     public function findUser()
     {
+        $this->checkLogin();
         if (isset($_POST['submit'])) {
             $del_flag = DEL_FLAG_ACTIVE;
             $search = addslashes($_POST['search']);
@@ -212,6 +222,12 @@ class AdminController extends BaseController
             if ($_SESSION['role_type'] == ROLE_ADMIN) {
                 exit(MESSAGE_NOT_PERMISSION);
             }
+        }
+    }
+    public function checkLogin()
+    {
+        if(!isset($_SESSION['email']) && !isset($_SESSION['password'])) {
+            header('location:index.php?controller=admin&action=index');
         }
     }
 }
