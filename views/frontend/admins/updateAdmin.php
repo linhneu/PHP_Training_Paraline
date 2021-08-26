@@ -58,7 +58,7 @@
 						             ?> value="2">
                             </div>
 
-                            <input type="submit" name="submit" value="Update" class="btn btn-primary">
+                            <input onclick="reportSuccess()" type="submit" name="submit" value="Update" class="btn btn-primary">
                             <a href="index.php?controller=admin&action=listAdmin" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
@@ -70,3 +70,8 @@
 </div>
 <!--/.row-->
 </div>
+<script type="text/javascript">
+    function reportSuccess() {
+        alert('You have updated information');
+    }
+</script>

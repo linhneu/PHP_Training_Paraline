@@ -49,15 +49,15 @@ class AdminModel extends BaseModel
     {
         return $this->update(self::Table, $id, $data);
     }
-    public function findUser($search, $condition, $rowsPerPage)
+    public function findUser($search,$del_flag, $rowsPerPage)
     {
         $sql = "SELECT * FROM " . self::Table . " WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
-        del_flag = ${condition}  LIMIT ${rowsPerPage} ";
+        del_flag = ${del_flag}  LIMIT ${rowsPerPage} ";
         return mysqli_query($this->connect, $sql);
     }
-    public function deleteUser($id, $condition)
+    public function deleteUser($id, $del_flag)
     {
-        return $this->delete(self::Table, $id, $condition);
+        return $this->delete(self::Table, $id, $del_flag);
     }
     public function getIdUser($id)
     {

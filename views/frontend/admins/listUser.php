@@ -41,7 +41,7 @@
                             <td>
                                 <a href="index.php?controller=admin&action=editUser&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
                                         class="glyphicon glyphicon-edit"></span>Edit</a>
-                                <a href="index.php?controller=admin&action=deleteUser&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
+                                <a onclick="reportDelete()" href="index.php?controller=admin&action=deleteUser&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
                                         class="glyphicon glyphicon-trash"></span>Delete</a>
                             </td>
 						</tr>
@@ -54,6 +54,9 @@
     </div>
 </div>
 </body>
-<?php 
-?>
 </div>
+<script type="text/javascript">
+    function reportDelete() {
+        alert('Do you want to delete this user?');
+    }
+</script>

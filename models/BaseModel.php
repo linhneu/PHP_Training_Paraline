@@ -77,11 +77,6 @@ abstract class BaseModel implements Database
         $query = $this->_query($sql);
         return mysqli_fetch_assoc($query);
     }
-    public function getQuery($sql)
-    {
-        $query = $this->_query($sql);
-        $data = [];
-    }
     public function getPage($table, $currentPage, $totalPages, $del_flag = DEL_FLAG_ACTIVE) {
         $rowsPerPage = ROW_PER_PAGE;
         $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;

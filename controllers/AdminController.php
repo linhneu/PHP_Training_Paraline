@@ -176,23 +176,22 @@ class AdminController extends BaseController
     }
     public function deleteUser()
     {
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-            $condition = 1;
-            $this->adminModel->deleteUser($id, $condition);
+            $id = isset($_GET['id']) ? $_GET['id'] : null;
+            $del_flag = DEL_FLAG_BANNED;
+            $this->adminModel->deleteUser($id, $del_flag);
             return $this->view('frontend.admins.listUser');
-        }
+        
     }
     public function findUser()
     {
         if (isset($_POST['submit'])) {
-            $condition = DEL_FLAG_ACTIVE;
+            $del_flag = DEL_FLAG_ACTIVE;
             $search = addslashes($_POST['search']);
             if (empty($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
                 $rowsPerPage = ROW_PER_PAGE;
-                $result = $this->adminModel->findUser($search, $condition, $rowsPerPage);
+                $result = $this->adminModel->findUser($search, $del_flag, $rowsPerPage);
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $totalRows = mysqli_num_rows($result);
                 $totalPages = ceil($totalRows / $rowsPerPage);
