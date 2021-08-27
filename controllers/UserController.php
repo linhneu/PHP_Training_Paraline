@@ -12,7 +12,7 @@ class UserController extends BaseController
 	{
 		require_once('./core/configFB.php');
 
-		$permissions = ['email']; 
+		$permissions = ['email'];
 
 		if (isset($accessToken)) {
 			if (!isset($_SESSION['facebook_access_token'])) {
@@ -39,9 +39,9 @@ class UserController extends BaseController
 				$fb_user = $fb_response->getGraphUser();
 				$picture = $fb_response_picture->getGraphUser();
 
-				$_SESSION['fb_user_id'] = $fb_user->getProperty('id');
-				$_SESSION['fb_user_name'] = $fb_user->getProperty('name');
-				$_SESSION['fb_user_email'] = $fb_user->getProperty('email');
+				$_SESSION['fb_user_id'] = $fb_user->getField('id');
+				$_SESSION['fb_user_name'] = $fb_user->getField('name');
+				$_SESSION['fb_user_email'] = $fb_user->getField('email');
 				$_SESSION['fb_user_pic'] = $picture['url'];
 				$data = [
 					'name' => $_SESSION['fb_user_name'],
@@ -53,12 +53,12 @@ class UserController extends BaseController
 				if (!isset($_SESSION['fb_user_id'])) {
 					$this->userModel->insertUser($data);
 				}
-			} catch (FacebookResponseException $e) {
+			} catch (Facebook\Exceptions\FacebookResponseException $e) {
 				echo 'Facebook API Error: ' . $e->getMessage();
 				session_destroy();
 				header("Location: ./");
 				exit;
-			} catch (FacebookSDKException $e) {
+			} catch (Facebook\Exceptions\FacebookSDKException $e) {
 				echo 'Facebook SDK Error: ' . $e->getMessage();
 				exit;
 			}

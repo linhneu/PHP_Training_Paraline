@@ -63,7 +63,8 @@ class AdminController extends BaseController
         $this->checkLogin();
         $this->permissionAdmin();
         $result = $this->adminModel->getAdmin();
-        return $this->view('frontend.admins.listAdmin',
+        return $this->view(
+            'frontend.admins.listAdmin',
             ['result' => $result]
         );
     }
@@ -164,7 +165,8 @@ class AdminController extends BaseController
     {
         $this->checkLogin();
         $result = $this->adminModel->getUser();
-        return $this->view('frontend.admins.listUser',
+        return $this->view(
+            'frontend.admins.listUser',
             ['result' => $result]
         );
     }

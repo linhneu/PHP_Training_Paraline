@@ -17,10 +17,10 @@ try {
   } else {
     $accessToken = $fb_helper->getAccessToken();
   }
-} catch (FacebookResponseException $e) {
+} catch (Facebook\Exceptions\FacebookResponseException $e) {
   echo 'Facebook API Error: ' . $e->getMessage();
   exit;
-} catch (FacebookSDKException $e) {
+} catch (Facebook\Exceptions\FacebookSDKException $e) {
   echo 'Facebook SDK Error: ' . $e->getMessage();
   exit;
 }

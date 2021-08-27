@@ -10,12 +10,12 @@ class BaseController
         }
         $viewPath = self::VIEW_FOLDER_NAME . '/' . str_replace('.', '/', $viewPath) . '.php';
 
-        require($viewPath);
+        require_once($viewPath);
     }
     public function loadModel($modelPath)
     {
         $modelPath = self::MODEL_FOLDER_NAME . '/' . $modelPath . '.php';
 
-        require($modelPath);
+        require_once($modelPath);
     }
 }
