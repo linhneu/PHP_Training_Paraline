@@ -2,7 +2,7 @@
 // constant in controller
 define("MESSAGE_NULL_LOGIN_FAILED","Email or password must not be blanked!" );
 define("MESSAGE_VALIDATE_LOGIN_FAILED", "Email or password is failed!");
-define("MESSAGE_NOT_NULL_FORM", "You must fill in this bo");
+define("MESSAGE_NOT_NULL_FORM", "You must fill in this box");
 define("MESSGAE_NOT_NULL_KEY", "You must be enter a keyword");
 define("MESSAGE_NOT_PERMISSION", "You do not have right to access");
 define("ROLE_ADMIN", 2);

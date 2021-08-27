@@ -27,7 +27,9 @@ include('./views/include/admin/navbar.php');
         </form>
     </div>
     <?php
-    if (isset($_POST['search'])) {
+    if (!isset($_POST['search'])) { 
+        echo MESSAGE_NOT_NULL_FORM ;
+    } else {
     ?>
         <div class="row" >
             <div class="col-xs-12 col-md-12 col-lg-12">
