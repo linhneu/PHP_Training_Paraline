@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input required type="text" name="password"
+                                <input required type="password" name="password"
                                     value="<?php if(isset($_POST['password'])){echo $_POST['password'];}else echo $row['password'] ; ?>"
                                     class="form-control">
                             </div>

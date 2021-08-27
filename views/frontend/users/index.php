@@ -18,7 +18,6 @@
 <div class="page-header text-center">
   <h2>Hello User!</h2>
 </div>
-<!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN --> 
 <!--  If the user is login  -->
 <?php if(isset($_SESSION['fb_user_id'])): ?>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -71,7 +70,6 @@
 		</div>
 	  </div>
 	</div>
-<!-- NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN --> 
 <!-- if user not login --> 
 <?php else: ?>
  
