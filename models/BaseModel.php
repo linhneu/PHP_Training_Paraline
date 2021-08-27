@@ -20,17 +20,6 @@ abstract class BaseModel implements Database
     {
         $this->connect = $this->connect();
     }
-    public function getAll($table, $select = ['*'])
-    {
-        $columns = implode(',', $select);
-        $sql = "SELECT ${columns}  FROM ${table} ";
-        $query = $this->_query($sql);
-        $data = [];
-        while ($row = mysqli_fetch_assoc($query)) {
-            array_push($data, $row);
-        }
-        return $data;
-    }
     public function create($table, $data = [])
     {
         $data['ins_id'] = isset($_SESSION['id']) ? $_SESSION['id']: null;
@@ -64,12 +53,6 @@ abstract class BaseModel implements Database
     public function delete($table, $id, $del_flag)
     {
         $sql = "DELETE FROM ${table} WHERE id = ${id} and del_flag = ${del_flag}";
-        $this->_query($sql);
-    }
-    public function find($table, $search, $del_flag, $rowsPerPage)
-    {
-        $sql = "SELECT * FROM ${table} WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
-        del_flag = ${del_flag} LIMIT ${rowsPerPage}  ";
         $this->_query($sql);
     }
     public function getByQuery($sql)

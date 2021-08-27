@@ -20,7 +20,7 @@ class AdminController extends BaseController
                 echo MESSAGE_NULL_LOGIN_FAILED;
             } else {
                 $result = $this->adminModel->login($email, $password);
-                $row= mysqli_fetch_assoc($result);
+                $row = mysqli_fetch_assoc($result);
                 if (mysqli_num_rows($result) > 0) {
                     $_SESSION['id'] = $row['id'];
                     $_SESSION['email'] = $email;
@@ -34,6 +34,20 @@ class AdminController extends BaseController
         }
         $this->view('frontend.admins.index');
     }
+    public function permissionAdmin()
+    {
+        if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
+            if ($_SESSION['role_type'] == ROLE_ADMIN) {
+                exit(MESSAGE_NOT_PERMISSION);
+            }
+        }
+    }
+    public function checkLogin()
+    {
+        if (!isset($_SESSION['email']) && !isset($_SESSION['password'])) {
+            header('location:index.php?controller=admin&action=index');
+        }
+    }
     public function home()
     {
         $this->checkLogin();
@@ -41,7 +55,6 @@ class AdminController extends BaseController
     }
     public function logout()
     {
-        session_unset();
         session_destroy();
         header('location: index.php?controller=admin&action=index');
     }
@@ -101,7 +114,7 @@ class AdminController extends BaseController
             $this->adminModel->updateAdmin($id, $data);
             move_uploaded_file($tmp_name, "asset/images/" . $avatar);
             header('location: index.php?controller=admin&action=listAdmin');
-        } 
+        }
         $row = $this->adminModel->getIdAdmin($id);
         $this->view('frontend.admins.updateAdmin', [
             'row' => $row
@@ -115,7 +128,6 @@ class AdminController extends BaseController
         $del_flag = DEL_FLAG_BANNED;
         $this->adminModel->deleteAdmin($id, $del_flag);
         header('location: index.php?controller=admin&action=listAdmin');
-        
     }
     public function findAdmin()
     {
@@ -130,15 +142,20 @@ class AdminController extends BaseController
                 $del_flag = DEL_FLAG_ACTIVE;
                 $rowsPerPage = ROW_PER_PAGE;
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                $total = $this->adminModel->listFindAdmin($search, $del_flag);
+                $totalRows = mysqli_num_rows($total);
+                $totalPages = ceil($totalRows / $rowsPerPage);
+                if ($currentPage > $totalPages) {
+                    $currentPage = $totalPages;
+                } else if ($currentPage < 1) {
+                    $currentPage = 1;
+                }
                 $start = ($currentPage - 1) * $rowsPerPage;
                 $result = $this->adminModel->findAdmin($search, $del_flag, $start, $rowsPerPage);
-                $totalRows = mysqli_num_rows($result);
-                $totalPages = ceil($totalRows / $rowsPerPage);
                 return $this->view('frontend.admins.findAdmin', [
                     'result' => $result,
                     'currentPage' => $currentPage,
                     'totalPages' => $totalPages
-
                 ]);
             }
         }
@@ -188,7 +205,6 @@ class AdminController extends BaseController
         $del_flag = DEL_FLAG_BANNED;
         $this->adminModel->deleteUser($id, $del_flag);
         return $this->view('frontend.admins.listUser');
-        
     }
     public function findUser()
     {
@@ -205,10 +221,9 @@ class AdminController extends BaseController
                 $total = $this->adminModel->listFindUser($search, $del_flag);
                 $totalRows = mysqli_num_rows($total);
                 $totalPages = ceil($totalRows / $rowsPerPage);
-                if ($currentPage > $totalPages){
+                if ($currentPage > $totalPages) {
                     $currentPage = $totalPages;
-                }
-                else if ($currentPage < 1){
+                } else if ($currentPage < 1) {
                     $currentPage = 1;
                 }
                 $start = ($currentPage - 1) * $rowsPerPage;
@@ -221,19 +236,5 @@ class AdminController extends BaseController
             }
         }
         $this->view('frontend.admins.findUser');
-    }
-    public function permissionAdmin()
-    {
-        if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
-            if ($_SESSION['role_type'] == ROLE_ADMIN) {
-                exit(MESSAGE_NOT_PERMISSION);
-            }
-        }
-    }
-    public function checkLogin()
-    {
-        if(!isset($_SESSION['email']) && !isset($_SESSION['password'])) {
-            header('location:index.php?controller=admin&action=index');
-        }
     }
 }

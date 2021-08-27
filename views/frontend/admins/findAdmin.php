@@ -8,27 +8,16 @@ include('./views/include/admin/navbar.php');
             <h1 class="page-header">SEARCH ADMIN</h1>
         </div>
     </div>
-    <script>
-        function searchFocus() {
-            if (document.sform.stext.value == 'Enter Name or Email') {
-                document.sform.stext.value = '';
-            }
-        }
-
-        function searchBlur() {
-            if (document.sform.stext.value == '') {
-                document.sform.stext.value = 'Enter Name or Email';
-            }
-        }
-    </script>
     <div id="search" class="col-md-6 col-sm-12 col-xs-12">
-        <form method="post" name="sform" action="index.php?controller=admin&action=findAdmin">
-            <input onfocus="searchFocus();" onblur="searchBlur();" type="text" name="search" value="">
+        <form method="post" name="sform" >
+            <input type="text" name="search" placeholder="PLease enter keyword" value="" >
             <input type="submit" name="submit" value="search">
         </form>
     </div>
     <?php
-    if (isset($_POST['search'])) {
+    if (!isset($_POST['search'])) {
+        echo MESSAGE_NOT_NULL_FORM;
+    } else {
     ?>
 
         <div class="row" style="">
@@ -62,15 +51,13 @@ include('./views/include/admin/navbar.php');
                             </tbody>
                         </table>
                         <ul class="pagination" style="float: right">
-                            <!-- <li><a href="#"> << </li> -->
                             <?php
                                 for ($i = 1; $i <= $totalPages; $i++) {
                                     if ($currentPage == $i) {
-                                        echo $listPage .= '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
-                                    } else echo $listPage .= '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                                        echo '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                                    } else echo '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
                                 }
                             ?>
-                            <!-- <li><a href="#"> >> </a></li> -->
                     </div>
                 </div>
             </div>

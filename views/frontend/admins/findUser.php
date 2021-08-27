@@ -8,21 +8,9 @@ include('./views/include/admin/navbar.php');
             <h1 class="page-header">SEARCH USER</h1>
         </div>
     </div>
-    <script>
-        function searchFocus() {
-            if (document.sform.stext.value == 'Enter Name or Email') {
-                document.sform.stext.value = '';
-            }
-        }
-        function searchBlur() {
-            if (document.sform.stext.value == '') {
-                document.sform.stext.value = 'Enter Name or Email';
-            }
-        }
-    </script>
     <div id="search" class="col-md-6 col-sm-12 col-xs-12">
         <form method="post" name="sform" action="" >
-            <input onfocus="searchFocus();" onblur="searchBlur();" type="text" name="search" value="">
+            <input  type="text" name="search" placeholder="PLease enter keyword" value="">
             <input type="submit" name="submit"  value="search">
         </form>
     </div>
@@ -67,7 +55,7 @@ include('./views/include/admin/navbar.php');
                             <?php 
                                 for ($i = 1; $i <= $totalPages; $i++) {
                                     if ($currentPage == $i) {
-                                    echo '<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
+                                    echo '<li class ="active"><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
                                     } else  echo '<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
                                 }
                             ?>
