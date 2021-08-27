@@ -136,7 +136,7 @@ class AdminController extends BaseController
         if (isset($_POST['submit'])) {
             $del_flag = DEL_FLAG_ACTIVE;
             $search = addslashes($_POST['search']);
-            if (empty($search)) {
+            if (!isset($search)) {
                 echo MESSGAE_NOT_NULL_KEY;
             } else {
                 $del_flag = DEL_FLAG_ACTIVE;

@@ -10,7 +10,7 @@
             <li><a href="index.php?controller=admin&action=listUser"><svg class="glyph stroked notepad">
                         <use xlink:href="#stroked-notepad"></use>
                     </svg> User management </a></li>
-            <li><a href="index.php?controller=admin&action=findAdmin"><svg class="glyph stroked clipboard with paper">
+            <li><a href="index.php?controller=admin&action=findAdmin&page="><svg class="glyph stroked clipboard with paper">
                         <use xlink:href="#stroked-clipboard-with-paper"></use>
                     </svg> Search Admin </a></li>
             <li><a href="index.php?controller=admin&action=findUser&page="><svg class="glyph stroked printer">

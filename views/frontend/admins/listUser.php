@@ -19,9 +19,10 @@
                             <th >ID</th>
                             <th width="15%">Name</th>
                             <th>Email</th>
-                            <th width="20%">Avatar</th>
+                            <th width="15%">Avatar</th>
                             <th>Facebook ID</th>
                             <th>Status</th>
+                            <th>Del flag</th>
                             <th>Option</th>
                         </tr>
                     </thead>
@@ -33,10 +34,11 @@
                             <td><?php echo $rows['name'];?></td>
                             <td><?php echo $rows['email'];?></td>
                             <td>
-                                <img width="200px" src="asset/images/<?php echo $rows['avatar'];?>" class="thumbnail">
+                                <img width="100px" src="<?php echo $rows['avatar'];?>"" class="thumbnail">
                             </td>
                             <td><?php echo $rows['facebook_id'];?></td>
                             <td><?php echo $rows['status'];?></td>
+                            <td><?php echo $rows['del_flag'];?></td>
                             <td>
                                 <a href="index.php?controller=admin&action=editUser&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
                                         class="glyphicon glyphicon-edit"></span>Edit</a>

@@ -22,6 +22,7 @@
                             <th>Email</th>
                             <th width="20%">Avatar</th>
                             <th>Role Type</th>
+                            <th>Del flag</th>
                             <th>Option</th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@
                                 <img width="200px" src="asset/images/<?php echo $rows['avatar'];?>" class="thumbnail">
                             </td>
                             <td><?php echo $rows['role_type'];?></td>
+                            <td><?php echo $rows['del_flag'];?></td>
                             <td>
                                 <a href="index.php?controller=admin&action=updateAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
                                         class="glyphicon glyphicon-edit"></span>Sửa</a>

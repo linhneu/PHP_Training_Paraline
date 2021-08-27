@@ -9,17 +9,14 @@ include('./views/include/admin/navbar.php');
         </div>
     </div>
     <div id="search" class="col-md-6 col-sm-12 col-xs-12">
-        <form method="post" name="sform" >
-            <input type="text" name="search" placeholder="PLease enter keyword" value="" >
+        <form method="post" name="sform">
+            <input type="text" name="search" placeholder="PLease enter keyword" value="">
             <input type="submit" name="submit" value="search">
         </form>
     </div>
     <?php
-    if (!isset($_POST['search'])) {
-        echo MESSAGE_NOT_NULL_FORM;
-    } else {
+    if (isset($_POST['search'])) {
     ?>
-
         <div class="row" style="">
             <div class="col-xs-12 col-md-12 col-lg-12">
                 <div class="bootstrap-table">
@@ -52,18 +49,17 @@ include('./views/include/admin/navbar.php');
                         </table>
                         <ul class="pagination" style="float: right">
                             <?php
-                                for ($i = 1; $i <= $totalPages; $i++) {
-                                    if ($currentPage == $i) {
-                                        echo '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
-                                    } else echo '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
-                                }
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                if ($currentPage == $i) {
+                                    echo '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                                } else echo '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                            }
                             ?>
                     </div>
                 </div>
             </div>
         </div>
     <?php
-    }
+    } 
     ?>
-
 </div>
