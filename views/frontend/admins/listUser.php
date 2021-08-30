@@ -11,6 +11,7 @@
 <!--/.row-->
 <div class="row" style="">
     <div class="col-xs-12 col-md-12 col-lg-12">
+        <a href="index.php?controller=admin&action=findUser" class="btn btn-primary">Find User</a>
         <div class="bootstrap-table">
             <div class="table-responsive">
                 <table class="table table-bordered" style="margin-top:20px;">
@@ -22,7 +23,6 @@
                             <th width="15%">Avatar</th>
                             <th>Facebook ID</th>
                             <th>Status</th>
-                            <th>Del flag</th>
                             <th>Option</th>
                         </tr>
                     </thead>
@@ -37,12 +37,11 @@
                                 <img width="100px" src="<?php echo $rows['avatar'];?>"" class="thumbnail">
                             </td>
                             <td><?php echo $rows['facebook_id'];?></td>
-                            <td><?php echo $rows['status'];?></td>
-                            <td><?php echo $rows['del_flag'];?></td>
+                            <td><?php if($rows['status'] == 1) { echo 'Active';} else echo 'Banned'?></td>
                             <td>
                                 <a href="index.php?controller=admin&action=editUser&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
                                         class="glyphicon glyphicon-edit"></span>Edit</a>
-                                <a onclick="reportDelete()" href="index.php?controller=admin&action=deleteUser&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
+                                <a href="index.php?controller=admin&action=deleteUser&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
                                         class="glyphicon glyphicon-trash"></span>Delete</a>
                             </td>
 						</tr>
@@ -56,8 +55,3 @@
 </div>
 </body>
 </div>
-<script type="text/javascript">
-    function reportDelete() {
-        alert('Do you want to delete this user?');
-    }
-</script>

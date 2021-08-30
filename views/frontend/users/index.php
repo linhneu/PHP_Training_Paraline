@@ -19,7 +19,7 @@
   <h2>Hello User!</h2>
 </div>
 <!--  If the user is login  -->
-<?php if(isset($_SESSION['fb_user_id'])): ?>
+<?php if(isset($_SESSION['user']['fb_user_id'])): ?>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <a class="navbar-brand" href="<?php echo BASE_URL; ?>">HOME</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -46,7 +46,7 @@
 		  <h2>About Me</h2>
 		  <h5>Profile Picture:</h5>
 		  <div class="fakeimg">
-			  <img width="200px" src = "<?php echo  $_SESSION['fb_user_pic']; ?>" >
+			  <img width="200px" src = "<?php echo  $_SESSION['user']['fb_user_pic']; ?>" >
 			</div>
 		  <hr class="d-sm-none">
 		</div>
@@ -57,13 +57,13 @@
 		  <h3>User Info</h3>
 		  <ul class="nav nav-pills flex-column">
 			<li class="nav-item">
-			  <a class="nav-link" >Facebook ID: <?php echo  $_SESSION['fb_user_id']; ?></a>
+			  <a class="nav-link" >Facebook ID: <?php echo  $_SESSION['user']['fb_user_id']; ?></a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link">Full Name: <?php echo $_SESSION['fb_user_name']; ?></a>
+			  <a class="nav-link">Full Name: <?php echo $_SESSION['user']['fb_user_name']; ?></a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link">Email: <?php echo $_SESSION['fb_user_email']; ?></a>
+			  <a class="nav-link">Email: <?php echo $_SESSION['user']['fb_user_email']; ?></a>
 			</li>
 		  </ul>
 		  

@@ -9,13 +9,15 @@ include('./views/include/admin/navbar.php');
         </div>
     </div>
     <div id="search" class="col-md-6 col-sm-12 col-xs-12">
-        <form method="post" name="sform" action="" >
-            <input  type="text" name="search" placeholder="PLease enter keyword" value="">
-            <input type="submit" name="submit"  value="search">
+        <form method="get" name="sform" action="" >
+            <input type="hidden" name="controller" value="admin" >
+            <input type="hidden" name="action" value="findUser" >
+            <input   type="text" name="search" placeholder="PLease enter keyword" value="<?php echo isset($_GET["search"]) ? $_GET["search"]:null ; ?>">
+            <input type="submit"  value="search">
         </form>
     </div>
     <?php
-    if (isset($_POST['search'])) { 
+    if (isset($_GET["search"])) { 
     ?>
         <div class="row" >
             <div class="col-xs-12 col-md-12 col-lg-12">
@@ -53,8 +55,8 @@ include('./views/include/admin/navbar.php');
                             <?php 
                                 for ($i = 1; $i <= $totalPages; $i++) {
                                     if ($currentPage == $i) {
-                                    echo '<li class ="active"><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
-                                    } else  echo '<li><a href="index.php?controller=admin&action=findUser&page='.$i.'">'.$i.'</a></li>';
+                                    echo '<li class ="active"><a href="index.php?controller=admin&action=findUser&search='.$_GET["search"].'&page='.$i.'">'.$i.'</a></li>';
+                                    } else  echo '<li><a href="index.php?controller=admin&action=findUser&search='.$_GET["search"].'&page='.$i.'">'.$i.'</a></li>';
                                 }
                             ?>
                         </ul>

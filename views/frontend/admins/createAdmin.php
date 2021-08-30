@@ -23,27 +23,32 @@ include('./views/include/admin/navbar.php');
                             <div class="col-xs-8">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input required type="text" name="name" class="form-control">
+                                    <input  type="text" name="name" class="form-control">
+                                    <b style="color:red"><?php echo isset($error['name']) ? $error['name'] : ''; ?></b>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input required type="text" name="email" class="form-control">
+                                    <input type="email" name="email" class="form-control">
+                                    <b style="color:red"><?php echo isset($error['email']) ? $error['email'] : ''; ?></b>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input required type="text" name="password" class="form-control">
+                                    <input  type="password" name="password" class="form-control">
+                                    <b style="color:red"><?php echo isset($error['password']) ? $error['password'] : ''; ?></b>
                                 </div>
                                 <div class="form-group">
                                     <label>Avatar</label>
-                                    <input required id="img" type="file" name="avatar">
+                                    <input  id="img" type="file" name="avatar">
+                                    <b style="color:red"><?php echo isset($error['avatar']) ? $error['avatar'] : ''; ?></b>
                                 </div>
                                 <div class="form-group">
                                     <label>Role Type</label><br>
                                     Super Admin <input type="radio" name="role_type" value="1">
                                     Admin <input type="radio" checked name="role_type" value="2">
                                 </div>
-                                <input type="submit" onclick="reportSuccess()" name="submit" value="Add" class="btn btn-primary">
-                                <a href="index.php" class="btn btn-danger">Cancel</a>
+                                <input type="submit" name="submit" value="Add" class="btn btn-primary">
+                                <a href="index.php?controller=admin&action=home" class="btn btn-danger">Cancel</a>
+                                <b style="color:red"><?php echo isset($error['failed']) ? $error['failed'] : ''; ?></b>
                             </div>
                         </div>
                     </form>
@@ -52,8 +57,3 @@ include('./views/include/admin/navbar.php');
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function reportSuccess() {
-        alert('You haved created an Admin account');
-    }
-</script>

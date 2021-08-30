@@ -9,15 +9,17 @@ include('./views/include/admin/navbar.php');
         </div>
     </div>
     <div id="search" class="col-md-6 col-sm-12 col-xs-12">
-        <form method="post" name="sform">
-            <input type="text" name="search" placeholder="PLease enter keyword" value="">
-            <input type="submit" name="submit" value="search">
+        <form method="get" name="sform">
+            <input type="hidden" name="controller" value="admin" >
+            <input type="hidden" name="action" value="findAdmin" >
+            <input type="text" name="search" placeholder="PLease enter keyword" value="<?php echo isset($_GET["search"]) ? $_GET["search"]:null ; ?>">
+            <input type="submit" value="search">
         </form>
     </div>
     <?php
-    if (isset($_POST['search'])) {
+    if (isset($_GET['search'])) {
     ?>
-        <div class="row" style="">
+        <div class="row">
             <div class="col-xs-12 col-md-12 col-lg-12">
                 <div class="bootstrap-table">
                     <div class="table-responsive">
@@ -41,7 +43,7 @@ include('./views/include/admin/navbar.php');
                                         <td>
                                             <img width="200px" src="asset/images/<?php echo $row['avatar']; ?>" class="thumbnail">
                                         </td>
-                                        <td><?php echo $row['role_type']; ?></td>
+                                        <td><?php if($rows['role_type'] == 1) { echo 'Super Admin';} else echo 'Admin' ?></td>
                                     </tr>
                                 <?php }
                                 ?>
@@ -51,8 +53,8 @@ include('./views/include/admin/navbar.php');
                             <?php
                             for ($i = 1; $i <= $totalPages; $i++) {
                                 if ($currentPage == $i) {
-                                    echo '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
-                                } else echo '<li><a href="index.php?controller=admin&action=findAdmin&page=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class ="active"><a href="index.php?controller=admin&action=findAdmin&search='.$_GET["search"].'&page='. $i . '">' . $i . '</a></li>';
+                                } else echo '<li><a href="index.php?controller=admin&action=findAdmin&search='.$_GET["search"].'&page='. $i . '">' . $i . '</a></li>';
                             }
                             ?>
                     </div>

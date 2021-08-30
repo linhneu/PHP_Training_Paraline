@@ -11,7 +11,11 @@
 <!--/.row-->
 <div class="row" style="">
     <div class="col-xs-12 col-md-12 col-lg-12">
-        <a href="index.php?controller=admin&action=createAdmin" class="btn btn-primary">Create Admin</a>
+        <div class="divider">
+        <a href="index.php?controller=admin&action=createAdmin" style="float: right " class="btn btn-primary">Create Admin</a>
+        <b style="color:red"><?php //echo isset($report['create']) ? $report['create'] : ''; ?></b>
+        <a href="index.php?controller=admin&action=findAdmin" class="btn btn-primary">Find Admin</a>
+        </div>
         <div class="bootstrap-table">
             <div class="table-responsive">
                 <table class="table table-bordered" style="margin-top:20px;">
@@ -22,7 +26,6 @@
                             <th>Email</th>
                             <th width="20%">Avatar</th>
                             <th>Role Type</th>
-                            <th>Del flag</th>
                             <th>Option</th>
                         </tr>
                     </thead>
@@ -36,13 +39,12 @@
                             <td>
                                 <img width="200px" src="asset/images/<?php echo $rows['avatar'];?>" class="thumbnail">
                             </td>
-                            <td><?php echo $rows['role_type'];?></td>
-                            <td><?php echo $rows['del_flag'];?></td>
+                            <td><?php if($rows['role_type'] == 1) { echo 'Super Admin';} else echo 'Admin' ?></td>
                             <td>
                                 <a href="index.php?controller=admin&action=updateAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
-                                        class="glyphicon glyphicon-edit"></span>Sửa</a>
-                                <a onclick="reportDelete()" href="index.php?controller=admin&action=deleteAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
-                                        class="glyphicon glyphicon-trash"></span>Xóa</a>
+                                        class="glyphicon glyphicon-edit"></span>Update</a>
+                                <a href="index.php?controller=admin&action=deleteAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
+                                        class="glyphicon glyphicon-trash"></span>Delete</a>
                             </td>
 						</tr>
                         <?php }
@@ -55,8 +57,3 @@
 </div>
 </body>
 </div>
-<script type="text/javascript">
-    function reportDelete() {
-        alert('Do you want to delete this user?');
-    }
-</script>

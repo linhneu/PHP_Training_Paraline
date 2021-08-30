@@ -23,7 +23,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user">
                                 <use xlink:href="#stroked-male-user"></use>
                             </svg>
-                            Hello <?php echo $_SESSION['email'];?><span class="caret"></span></a>
+                            Hello <?php echo $_SESSION['admin']['email'];?><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="index.php?controller=admin&action=logout"><svg class="glyph stroked cancel">
                                         <use xlink:href="#stroked-cancel"></use>

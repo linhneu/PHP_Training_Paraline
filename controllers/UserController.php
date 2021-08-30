@@ -38,19 +38,21 @@ class UserController extends BaseController
 
 				$fb_user = $fb_response->getGraphUser();
 				$picture = $fb_response_picture->getGraphUser();
-
-				$_SESSION['fb_user_id'] = $fb_user->getField('id');
-				$_SESSION['fb_user_name'] = $fb_user->getField('name');
-				$_SESSION['fb_user_email'] = $fb_user->getField('email');
-				$_SESSION['fb_user_pic'] = $picture['url'];
+				$infoUser = [
+					'fb_user_id' => $fb_user->getField('id'),
+					'fb_user_name' => $fb_user->getField('name'),
+					'fb_user_email' => $fb_user->getField('email'),
+					'fb_user_pic' => $picture['url']
+				];
+				$_SESSION['user'] = $infoUser;
 				$data = [
-					'name' => $_SESSION['fb_user_name'],
-					'email' => $_SESSION['fb_user_email'],
-					'facebook_id' => $_SESSION['fb_user_id'],
-					'avatar' => $_SESSION['fb_user_pic'],
+					'name' => $_SESSION['user']['fb_user_name'],
+					'email' => $_SESSION['user']['fb_user_email'],
+					'facebook_id' => $_SESSION['user']['fb_user_id'],
+					'avatar' => $_SESSION['user']['fb_user_pic'],
 					'status' => 1,
 				];
-				if (!isset($_SESSION['fb_user_id'])) {
+				if (!isset($_SESSION['user']['fb_user_id'])) {
 					$this->userModel->insertUser($data);
 				}
 			} catch (Facebook\Exceptions\FacebookResponseException $e) {
@@ -71,8 +73,9 @@ class UserController extends BaseController
 	}
 	public function logout()
 	{
-		session_unset();
-		session_destroy();
+		//session_destroy();
+		unset($_SESSION['facebook_access_token']);
+		unset($_SESSION['user']['fb_user_id']);
 		header('location:index.php?controller=user');
 	}
 }

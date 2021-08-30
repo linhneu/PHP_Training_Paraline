@@ -22,7 +22,7 @@ abstract class BaseModel implements Database
     }
     public function create($table, $data = [])
     {
-        $data['ins_id'] = isset($_SESSION['id']) ? $_SESSION['id']: null;
+        $data['ins_id'] = isset($_SESSION['admin']['id']) ? $_SESSION['admin']['id']: null;
         $data['ins_datetime'] = date('Y-m-d H:s:i');
         $data['del_flag'] = DEL_FLAG_ACTIVE;
         $columns = implode(',', array_keys($data));
@@ -38,7 +38,7 @@ abstract class BaseModel implements Database
     }
     public function update($table, $id, $data = [])
     {
-        $data['upd_id'] = isset($_SESSION['id']) ? $_SESSION['id']: null;
+        $data['upd_id'] = isset($_SESSION['admin']['id']) ? $_SESSION['admin']['id']: null;
         $data['upd_datetime'] = date('Y-m-d H:s:i');
         $data['del_flag'] = DEL_FLAG_ACTIVE;
         $dataSets = [];
@@ -52,7 +52,7 @@ abstract class BaseModel implements Database
     }
     public function delete($table, $id, $del_flag)
     {
-        $sql = "DELETE FROM ${table} WHERE id = ${id} and del_flag = ${del_flag}";
+        $sql = "UPDATE ${table} SET del_flag = ${del_flag} WHERE id = ${id}";
         $this->_query($sql);
     }
     public function getByQuery($sql)
