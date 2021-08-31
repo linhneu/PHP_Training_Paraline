@@ -13,7 +13,6 @@
     <div class="col-xs-12 col-md-12 col-lg-12">
         <div class="divider">
         <a href="index.php?controller=admin&action=createAdmin" style="float: right " class="btn btn-primary">Create Admin</a>
-        <b style="color:red"><?php //echo isset($report['create']) ? $report['create'] : ''; ?></b>
         <a href="index.php?controller=admin&action=findAdmin" class="btn btn-primary">Find Admin</a>
         </div>
         <div class="bootstrap-table">
@@ -30,7 +29,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($rows = mysqli_fetch_array($result)) {
+                        <?php foreach ($result as $rows) {
                         ?>
                         <tr>
                             <td><?php echo $rows['id']; ?></td>

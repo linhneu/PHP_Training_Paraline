@@ -31,10 +31,11 @@ include('./views/include/admin/navbar.php');
                                     <th>Email</th>
                                     <th width="20%">Avatar</th>
                                     <th>Role Type</th>
+                                    <th> Option </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = mysqli_fetch_array($result)) {
+                                <?php foreach ($result as $row) {
                                 ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
@@ -43,7 +44,13 @@ include('./views/include/admin/navbar.php');
                                         <td>
                                             <img width="200px" src="asset/images/<?php echo $row['avatar']; ?>" class="thumbnail">
                                         </td>
-                                        <td><?php if($rows['role_type'] == 1) { echo 'Super Admin';} else echo 'Admin' ?></td>
+                                        <td><?php if($row['role_type'] == 1) { echo 'Super Admin';} else echo 'Admin' ?></td>
+                                        <td>
+                                            <a href="index.php?controller=admin&action=updateAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-warning"><span
+                                            class="glyphicon glyphicon-edit"></span>Update</a>
+                                            <a href="index.php?controller=admin&action=deleteAdmin&id=<?php echo $rows['id']; ?>" class="btn btn-danger"><span
+                                            class="glyphicon glyphicon-trash"></span>Delete</a>
+                                        </td>
                                     </tr>
                                 <?php }
                                 ?>

@@ -27,7 +27,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($rows = mysqli_fetch_array($result)) {
+                        <?php foreach($result as $rows) {
+                            //foreach ($rows as $row) {
                         ?>
                         <tr>
                             <td><?php echo $rows['id']; ?></td>

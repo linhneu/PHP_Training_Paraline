@@ -32,20 +32,27 @@ include('./views/include/admin/navbar.php');
                                     <th width="20%">Avatar</th>
                                     <th>Facebook ID</th>
                                     <th>Status</th>
+                                    <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = mysqli_fetch_array($result)) {
+                                <?php foreach ($result as $row) {
                                 ?>
                                     <tr>
                                         <td><?php echo $row['id']; ?></td>
                                         <td><?php echo $row['name']; ?></td>
                                         <td><?php echo $row['email']; ?></td>
                                         <td>
-                                            <img width="200px" src="<?php echo $row['avatar']; ?>" class="thumbnail">
+                                            <img width="100px" src="<?php echo $row['avatar']; ?>" class="thumbnail">
                                         </td>
                                         <td><?php echo $row['facebook_id']; ?></td>
-                                        <td><?php echo $row['status']; ?></td>
+                                        <td><?php if($row['status'] == 1) { echo 'Active';} else echo 'Banned' ?></td>
+                                        <td>
+                                            <a href="index.php?controller=admin&action=editUser&id=<?php echo $row['id']; ?>" class="btn btn-warning"><span
+                                            class="glyphicon glyphicon-edit"></span>Edit</a>
+                                            <a href="index.php?controller=admin&action=deleteUser&id=<?php echo $row['id']; ?>" class="btn btn-danger"><span
+                                            class="glyphicon glyphicon-trash"></span>Delete</a>
+                                        </td>
                                     </tr>
                                 <?php }
                                 ?>

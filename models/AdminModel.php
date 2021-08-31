@@ -17,13 +17,13 @@ class AdminModel extends BaseModel
     }
     public function findAdmin($search, $del_flag, $start, $rowsPerPage)
     {
-        $sql = "SELECT * FROM " . TABLE . " WHERE email LIKE '%${search}%' OR name LIKE '%${search}%' and
+        $sql = "SELECT * FROM " . TABLE . " WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
         del_flag = ${del_flag}  LIMIT ${start}, ${rowsPerPage}";
         return mysqli_query($this->connect, $sql);
     }
     public function listFindAdmin($search, $del_flag)
     {
-        $sql = "SELECT * FROM " . TABLE . " WHERE email LIKE '%${search}%' OR name LIKE '%${search}%' and
+        $sql = "SELECT * FROM " . TABLE . " WHERE email LIKE '%${search}%' and name LIKE '%${search}%' and
         del_flag = ${del_flag}";
         return $this->_query($sql);
     }
@@ -70,9 +70,9 @@ class AdminModel extends BaseModel
         $sql = "SELECT * FROM " . Table . " WHERE id = ${id}";
         return $this->getByQuery($sql);
     }
-    public function getUser()
+    public function getUser($del_flag = DEL_FLAG_ACTIVE)
     {
-        $sql = "SELECT * FROM " . Table . " ORDER BY id ";
+        $sql = "SELECT * FROM " . Table . " WHERE del_flag = $del_flag ORDER BY id ";
         return $this->_query($sql);
     }
 }

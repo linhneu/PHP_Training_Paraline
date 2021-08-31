@@ -21,6 +21,8 @@ define("MESSAGE_NOT_NULL_PASSWORD", "Password must be filled");
 define("MESSAGE_DATA_FAILED", "There is an error, the data may not save");
 define("MESSAGE_AVA_TYPE_FAILED", "The picture is not in the correct format");
 define("MESSAGE_AVA_SIZE_FAILED", "The size of the photo is over the allowed limit");
+define("MESSAGE_ID_NULL", "Sorry, id doesn't exist");
+define("MESSAGE_LINK_NULL", "This view doesn't exist");
 
 //constant in configDB
 define('APP_ID', '892782478034133');

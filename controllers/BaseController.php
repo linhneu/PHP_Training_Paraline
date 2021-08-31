@@ -5,9 +5,8 @@ class BaseController
     const MODEL_FOLDER_NAME = 'models';
     public function view($viewPath, array $data = [])
     {
-        //@todo check viewpath có tồn tại hay k báo lỗi
         foreach ($data as $key => $value) {
-            $$key = $value; //@todo nếu là mảng
+            $$key = $value; 
         }
         $viewPath = self::VIEW_FOLDER_NAME . '/' . str_replace('.', '/', $viewPath) . '.php';
 

@@ -3,10 +3,12 @@
     include('./views/include/admin/navbar.php');
 ?>
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-?>
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Admin Account</h1>
+        <a href="index.php?controller=admin&action=listAdmin" style="float: left; margin-bottom: 15px; margin-right: 15px;" class="btn btn-primary">Go back to list</a>
+        <b style="color:red"><?php echo isset($report['update']) ? $report['update'] : ''; ?></b>
+        <b style="color:red"><?php echo isset($error['id']) ? $error['id'] : ''; ?></b>
     </div>
 </div>
 <!--/.row-->
@@ -21,26 +23,30 @@
                         <div class="col-xs-8">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input required type="text" name="name"
+                                <input type="text" name="name"
                                     value="<?php if(isset($_POST['name'])){echo $_POST['name'];} else echo $row['name'] ; ?>"
                                     class="form-control">
+                                <b style="color:red"><?php echo isset($error['name']) ? $error['name'] : ''; ?></b>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input required type="text" name="email"
+                                <input type="email" name="email"
                                     value="<?php if(isset($_POST['email'])){echo $_POST['email'];}else echo $row['email']; ?>"
                                     class="form-control">
+                                <b style="color:red"><?php echo isset($error['email']) ? $error['email'] : ''; ?></b>
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input required type="password" name="password"
+                                <input type="password" name="password"
                                     value="<?php if(isset($_POST['password'])){echo $_POST['password'];}else echo $row['password'] ; ?>"
                                     class="form-control">
+                                <b style="color:red"><?php echo isset($error['password']) ? $error['password'] : ''; ?></b>
                             </div>
                             <div class="form-group">
                                 <label>Avatar</label>
-                                <input type="file" name="avatar" class="form-control">
-                                <input type="hidden" name='avatar' value="<?php echo $row['avatar']; ?>">
+                                <input type="file" name="avatar" class="form-control" >
+                                <input type="hidden" name='avatar' value="<?php echo $row['avatar'] ; ?>">
+                                <b style="color:red"><?php echo isset($error['avatar']) ? $error['avatar'] : ''; ?></b>
                             </div>
                             <div class="form-group">
                                 <label>Role type</label>
@@ -58,8 +64,9 @@
 						             ?> value="2">
                             </div>
 
-                            <input onclick="reportSuccess()" type="submit" name="submit" value="Update" class="btn btn-primary">
+                            <input type="submit" name="submit" value="Update" class="btn btn-primary">
                             <a href="index.php?controller=admin&action=listAdmin" class="btn btn-danger">Cancel</a>
+                            <b style="color:red"><?php echo isset($error['failed']) ? $error['failed'] : ''; ?></b>
                         </div>
                     </div>
                 </form>
@@ -70,8 +77,3 @@
 </div>
 <!--/.row-->
 </div>
-<script type="text/javascript">
-    function reportSuccess() {
-        alert('You have updated information');
-    }
-</script>

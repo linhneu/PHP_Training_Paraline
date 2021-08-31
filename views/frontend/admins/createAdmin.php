@@ -8,6 +8,8 @@ include('./views/include/admin/navbar.php');
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Admin Account</h1>
+            <a href="index.php?controller=admin&action=listAdmin" style="float: left; margin-bottom: 15px; " class="btn btn-primary">Go back to list</a>
+            <b style="color:red"><?php echo isset($report['create']) ? $report['create'] : ''; ?></b>
         </div>
     </div>
     <!--/.row-->
